@@ -15,7 +15,7 @@ namespace NamPhuThuy.Data
             {
                 if (_instance == null)
                 {
-                    T[] objs = FindObjectsOfType<T>();
+                    T[] objs = Object.FindObjectsByType<T>(FindObjectsSortMode.None);
                     if (objs.Length > 0)
                     {
                         T instance = objs[0];
@@ -40,7 +40,7 @@ namespace NamPhuThuy.Data
             if (!_instance)
             {
                 // Debug.Log($"Singleton<{typeof(T).Name}> Awake");
-                _instance = FindObjectOfType<T>();
+                _instance = Object.FindFirstObjectByType<T>();
                 OnInitialization();
             }
         }
