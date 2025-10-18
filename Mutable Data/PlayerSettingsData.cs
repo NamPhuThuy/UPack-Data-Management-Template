@@ -1,0 +1,30 @@
+using System;
+
+namespace NamPhuThuy.Data
+{
+    
+    [Serializable]
+    public class PlayerSettingsData
+    {
+        public float musicVolume;
+        public float sfxVolume;
+
+        public bool musicEnabled;
+        public bool sfxEnabled;
+        public bool vibrationEnabled;
+        public bool notifyEnabled;
+
+        public PlayerSettingsData(bool musicEnabled = true, bool sfxEnabled = true, bool vibrationEnabled = true, bool notifyEnabled = true)
+        {
+            this.musicEnabled = musicEnabled;
+            this.sfxEnabled = sfxEnabled;
+            this.vibrationEnabled = vibrationEnabled;
+            this.notifyEnabled = notifyEnabled;
+        }
+
+        public PlayerSettingsData()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
