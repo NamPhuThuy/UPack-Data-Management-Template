@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NamPhuThuy.Common;
 using UnityEngine;
 using UnityEngine.Serialization;
 #if UNITY_EDITOR
@@ -12,7 +13,7 @@ namespace NamPhuThuy.Data
     public class IAPData : ScriptableObject
     {
         [Header("IAP Data")]
-        [SerializeField] private IAPRecord[] iapRecords;
+        [SerializeField] private IAPRecord[] records;
         private Dictionary<string, IAPRecord> _dictIAPData;
 
         public Dictionary<string, IAPRecord> DictIAPData
@@ -21,7 +22,7 @@ namespace NamPhuThuy.Data
             {
                 if (_dictIAPData == null)
                 {
-                    EnsureIndex();
+                    EnsureDict();
                 }
 
                 return _dictIAPData;
@@ -30,27 +31,41 @@ namespace NamPhuThuy.Data
         
         #region Private Methods
 
-        private void EnsureIndex()
+        private void EnsureDict()
         {
             if (_dictIAPData != null) return;
-            _dictIAPData = new Dictionary<string, IAPRecord>(iapRecords?.Length ?? 0);
+            _dictIAPData = new Dictionary<string, IAPRecord>(records?.Length ?? 0);
             if (_dictIAPData == null) return;
             
             
-            foreach (var r in iapRecords)
+            foreach (var r in records)
             {
-                if (r == null) continue;
+                if (r == null)
+                {
+                    DebugLogger.LogError(message:$"Record is null", context:this);
+                    continue;
+                }
+                
+                if (string.IsNullOrEmpty(r.bundleId))
+                {
+                    DebugLogger.LogError(message:$"Bundle is null", context:this);
+                    continue;
+                }
                 _dictIAPData[r.bundleId] = r; // last one wins if duplicates
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
         public IAPRecord GetIAPData(string bundleId)
         {
-            EnsureIndex();
+            EnsureDict();
             if (_dictIAPData == null) return null;
             return _dictIAPData.GetValueOrDefault(bundleId);
-        }
-        
+        }   
+
         #endregion
     }
     
@@ -77,9 +92,11 @@ namespace NamPhuThuy.Data
         
         public int GetResourceAmount(ResourceType type)
         {
-            foreach (ResourceReward resource in rewardList)
+            if (rewardList == null) return 0;
+
+            foreach (var resource in rewardList)
             {
-                if (type == resource.resourceType)
+                if (resource != null && type == resource.resourceType)
                 {
                     return resource.amount;
                 }
@@ -87,5 +104,7 @@ namespace NamPhuThuy.Data
 
             return 0;
         }
+        
+        
     }
 }

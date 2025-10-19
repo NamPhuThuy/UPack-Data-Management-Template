@@ -24,7 +24,7 @@ JSON for:
 - Anything that needs to change after build
 */
 
-    public class DataManager : Singleton<DataManager>
+    public partial class DataManager : Singleton<DataManager>
     {
         #region Private Fields
 
@@ -33,44 +33,7 @@ JSON for:
         #endregion
 
         #region Mutable Datas
-        private bool _isPlayerDataLoaded;
-        private bool _isSettingsDataLoaded;
-        private bool _isGalleryDataLoaded;
-
-        [SerializeField] private PlayerData cachedPlayerData;
-
-        public PlayerData PlayerData
-        {
-            get
-            {
-                if (!_isPlayerDataLoaded)
-                {
-                    _isPlayerDataLoaded = true;
-                    LoadPlayerData();
-                }
-
-                return cachedPlayerData;
-            }
-        }
-
-
-        [SerializeField] private PlayerSettingsData cachedPlayerSettingsData;
-
-        public PlayerSettingsData PlayerSettingsData
-        {
-            get
-            {
-                if (!_isSettingsDataLoaded)
-                {
-                    LoadSettingsData();
-                    _isSettingsDataLoaded = true;
-                }
-
-                return cachedPlayerSettingsData;
-            }
-        }
-
-        
+       
         public void SavePlayerData()
         {
             SaveMutableData(cachedPlayerData, "player");
@@ -187,74 +150,6 @@ JSON for:
         }
         #endregion
         
-        #endregion
-
-
-
-
-        #region Immutable Datas
-
-        [Header("Immutable Datas")]
-        [SerializeField] private LevelData levelData;
-
-        public LevelData LevelData
-        {
-            get
-            {
-                if (levelData == null)
-                {
-                    levelData = Resources.Load<LevelData>("LevelDatas");
-                }
-
-                return levelData;
-            }
-        }
-
-        [SerializeField] private BoosterData boosterData;
-
-        public BoosterData BoosterData
-        {
-            get
-            {
-                if (boosterData == null)
-                {
-                    boosterData = Resources.Load<BoosterData>("BoosterDatas");
-                }
-
-                return boosterData;
-            }
-        }
-
-        [SerializeField] private IAPData iapData;
-
-        public IAPData IAPData
-        {
-            get
-            {
-                if (iapData == null)
-                {
-                    iapData = Resources.Load<IAPData>("IAPDatas");
-                }
-
-                return iapData;
-            }
-        }
-
-        [SerializeField] private ResourceData resourceData;
-
-        public ResourceData ResourceData
-        {
-            get
-            {
-                if (resourceData == null)
-                {
-                    resourceData = Resources.Load<ResourceData>("ResourceData");
-                }
-
-                return resourceData;
-            }
-        }
-
         #endregion
 
 
@@ -394,33 +289,29 @@ JSON for:
 
     public enum ResourceType
     {
-        COIN = 0,
-        BOOSTER = 1,
-        PICTURE = 2,
+        NONE = 0,
+        COIN = 1,
+        BOOSTER = 2,
+        HEART = 3,
         NO_ADS = 5,
-        BOOSTER_UNDO = 6,
-        BOOSTER_MAGIC_PICK = 7,
-        BOOSTER_SHUFFLE = 8,
     }
 
     public enum BoosterType
     {
-        UNDO = 0,
-        MAGIC_PICK = 1,
-        SHUFFLE = 2,
-        DOUBLE_WIN_BOOSTER = 3,
+        NONE = 0,
+        UNDO = 1,
+        CLEAR_A_FOOD_TYPE = 2,
+        SHUFFLE = 3,
 
-        NONE = 99,
     }
 
-    public enum CurrencyType
+    public enum FoodType
     {
-        COIN = 0,
-        ADS = 1
+        NONE = 0,
+        MEET_SCROLL = 1,
+        CAKE = 2,
+        ICE_CREAM = 3,
     }
 
-    public enum ServiceType
-    {
-        DOWNLOAD_IMAGE = 0
-    }
+    
 }

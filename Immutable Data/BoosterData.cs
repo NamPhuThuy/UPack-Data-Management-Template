@@ -15,11 +15,9 @@ namespace NamPhuThuy.Data
         public string boosterName;
         public Sprite gameplayImage;
         public Sprite inventoryImage;
-        public int price;
-        public CurrencyType currencyType = CurrencyType.COIN;
     }
     
-    [CreateAssetMenu(fileName = "BoosterDatas", menuName = "Game/BoosterDatas")]
+    [CreateAssetMenu(fileName = "BoosterData", menuName = "Game/BoosterData")]
     public class BoosterData : ScriptableObject
     {
         public BoosterRecord[] allBoosters;

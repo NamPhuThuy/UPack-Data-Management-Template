@@ -75,9 +75,6 @@ namespace NamPhuThuy.Data
         [ShowIf(nameof(resourceType), ResourceType.BOOSTER)]
         public BoosterType boosterType;
         
-        [ShowIf(nameof(resourceType), ResourceType.PICTURE)]
-        public int pictureId = -1;
-        
         public Sprite gameplayImage;
         public Sprite inventoryImage;
         
@@ -93,8 +90,6 @@ namespace NamPhuThuy.Data
         [ShowIf("resourceType", ResourceType.BOOSTER)]
         public BoosterType boosterType;
 
-        [ShowIf("resourceType", ResourceType.PICTURE)]
-        public int pictureId = -1;                   
         // (Optional future: flags for random picture by style/rarity)
         public int amount;
 
@@ -102,7 +97,6 @@ namespace NamPhuThuy.Data
         {
             this.resourceType = resourceType;
             this.boosterType = boosterType;
-            this.pictureId = pictureId;
             this.amount = amount;
         }
     }

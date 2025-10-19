@@ -259,7 +259,6 @@ namespace NamPhuThuy.Data
         {
             if (item == null)
             {
-                DebugLogger.Log($"PlayerData.TryApplyRewards() item is null");
                 return false;
             }
             return TryApplyRewards(new List<ResourceReward> { item }, amountMultiplier);
@@ -306,7 +305,7 @@ namespace NamPhuThuy.Data
         {
             SetBoosterNum(BoosterType.UNDO, 0);
             SetBoosterNum(BoosterType.SHUFFLE, 0);
-            SetBoosterNum(BoosterType.MAGIC_PICK, 0);
+            SetBoosterNum(BoosterType.CLEAR_A_FOOD_TYPE, 0);
         }
         
         [Serializable]
