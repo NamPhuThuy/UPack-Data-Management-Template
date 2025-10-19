@@ -59,7 +59,7 @@ namespace NamPhuThuy.Data
             {
                 if (levelData == null)
                 {
-                    levelData = Resources.Load<LevelData>("LevelDatas");
+                    levelData = Resources.Load<LevelData>("LevelData");
                 }
 
                 return levelData;
@@ -74,7 +74,7 @@ namespace NamPhuThuy.Data
             {
                 if (boosterData == null)
                 {
-                    boosterData = Resources.Load<BoosterData>("BoosterDatas");
+                    boosterData = Resources.Load<BoosterData>("BoosterData");
                 }
 
                 return boosterData;
@@ -89,7 +89,7 @@ namespace NamPhuThuy.Data
             {
                 if (iapData == null)
                 {
-                    iapData = Resources.Load<IAPData>("IAPDatas");
+                    iapData = Resources.Load<IAPData>("IAPData");
                 }
 
                 return iapData;
@@ -111,6 +111,21 @@ namespace NamPhuThuy.Data
             }
         }
 
+        
+        [SerializeField] private ConceptData conceptData;
+
+        public ConceptData ConceptData
+        {
+            get
+            {
+                if (conceptData == null)
+                {
+                    conceptData = Resources.Load<ConceptData>("ConceptData");
+                }
+
+                return conceptData;
+            }
+        }
         #endregion
 
     }
