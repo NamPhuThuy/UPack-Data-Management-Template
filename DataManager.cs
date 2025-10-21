@@ -130,7 +130,7 @@ JSON for:
                 }
                 catch (Exception e)
                 {
-                    DebugLogger.LogWarning($"DataManager.LoadMutableData() ");
+                    DebugLogger.LogWarning($"DataManager.LoadMutableData() {e}");
                     return resetAction();
                 }
             }
@@ -311,7 +311,17 @@ JSON for:
         MEET_SCROLL = 1,
         CAKE = 2,
         ICE_CREAM = 3,
+        SHRIMP = 4,
+        HOTDOG = 5,
+        SALAD = 6,
     }
 
+    public enum GrillType
+    {
+        NONE = 0,
+        NORMAL = 1,
+        FREEZE = 2,
+        LOCKED = 3
+    }
     
 }

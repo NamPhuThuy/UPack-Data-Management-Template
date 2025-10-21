@@ -126,6 +126,21 @@ namespace NamPhuThuy.Data
                 return conceptData;
             }
         }
+        
+        [SerializeField] private FoodData foodData;
+
+        public FoodData FoodData
+        {
+            get
+            {
+                if (foodData == null)
+                {
+                    foodData = Resources.Load<FoodData>("FoodData");
+                }
+
+                return foodData;
+            }
+        }
         #endregion
 
     }
