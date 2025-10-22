@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFoods:
   - type: 1
-    sprite: {fileID: 21300000, guid: 0e1244898b569784a9c3ed6273882303, type: 3}
+    sprite: {fileID: 21300000, guid: 2962eaa2ff065c14ca2ae815b29faf3c, type: 3}
     displayName: 
     baseScore: 0
   - type: 2
-    sprite: {fileID: 21300000, guid: df990351fb7f339418661891b14eaf2c, type: 3}
+    sprite: {fileID: 21300000, guid: 4cbaca830bf97484bb2086a33b98910f, type: 3}
     displayName: 
     baseScore: 0
   - type: 3
-    sprite: {fileID: 21300000, guid: 6fe504ef9a0323441a3a4c7c55205da5, type: 3}
+    sprite: {fileID: 21300000, guid: f450a761224393a479c7ab80d98d864c, type: 3}
     displayName: 
     baseScore: 0
   - type: 4
-    sprite: {fileID: 21300000, guid: 9c449397b28332d43be21cf2fa81139b, type: 3}
+    sprite: {fileID: 21300000, guid: ffab8a50d552e8845af956fb6f98c840, type: 3}
     displayName: 
     baseScore: 0
   - type: 5
-    sprite: {fileID: 21300000, guid: c4dbb5d5bb635f947b5c6a2543283d89, type: 3}
+    sprite: {fileID: 21300000, guid: aea6aa55c6987a84cb635aba9f708b2d, type: 3}
     displayName: 
     baseScore: 0
   - type: 6
-    sprite: {fileID: 21300000, guid: b7855ada96e5baa4ab5b09e7dbac2b20, type: 3}
+    sprite: {fileID: 21300000, guid: dfcddaa212915f64fbbafc4c538eea48, type: 3}
     displayName: 
     baseScore: 0

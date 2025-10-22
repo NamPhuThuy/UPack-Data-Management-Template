@@ -125,19 +125,6 @@ namespace NamPhuThuy.Data
             return _dictConceptData.GetValueOrDefault(conceptType);
         }
 
-        public FoodRecord GetFoodData(ConceptRecord.ConceptType conceptType, FoodType foodType)
-        {
-            var concept = GetConceptData(conceptType);
-            if (concept?.foodData == null) return null;
-
-            foreach (var food in concept.foodData)
-            {
-                if (food.type == foodType)
-                    return food;
-            }
-            return null;
-        }
-
         #endregion
     }
     
@@ -158,27 +145,16 @@ namespace NamPhuThuy.Data
         [Header("Level Visuals")]
         public Sprite levelHeader;
         public Sprite levelBackground;
-        public Sprite levelFooter;
+        // public Sprite levelFooter;
         
         [Header("Gameplay Elements")]
         public Sprite plateSprite;
         public Sprite skewerSprite;
-        public Sprite grillSprite;
+        public Sprite grillLidSprite;
+        public Sprite grillBodySprite;
         
         [Header("Food Data")]
-        public FoodRecord[] foodData;
-
-        public FoodRecord GetFoodRecord(FoodType type)
-        {
-            if (foodData == null) return null;
-            
-            foreach (var food in foodData)
-            {
-                if (food.type == type)
-                    return food;
-            }
-            return null;
-        }
+        public FoodType[] foodTypes;
     }
 
  

@@ -135,4 +135,6 @@ namespace NamPhuThuy.Data
         public string displayName;
         public int baseScore;
     }
+    
+    
 }

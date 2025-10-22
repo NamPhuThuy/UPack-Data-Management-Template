@@ -134,5 +134,6 @@ namespace NamPhuThuy.Data
         public int grillId;
         public GrillType type;
         public List<FoodType> foodList;
+        // public List<int> foodId;
     }
 }
