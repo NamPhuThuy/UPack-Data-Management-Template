@@ -124,9 +124,17 @@ namespace NamPhuThuy.Data
     public class LevelRecord
     {
         public int levelID;
+        public int foodTypeNum; // number of different food types in this level
+        public int grillNum;
+        public int grillEmpty;
+        
+        
         public float duration;
+        
+        
         public ConceptRecord.ConceptType conceptType;
         public List<GrillRecord> grillRecords;
+        public List<MechanicRecord> mechanicRecords;
     }
     
     [Serializable]
@@ -136,6 +144,13 @@ namespace NamPhuThuy.Data
         public GrillType type;
         public List<FoodType> foodList;
         // public List<int> foodId;
+    }
+    
+    [Serializable]
+    public class MechanicRecord
+    {
+        public MechanicType type;
+        public int value;
     }
 
     public enum MechanicType
@@ -150,4 +165,27 @@ namespace NamPhuThuy.Data
         SILVER_PAPE_WRAPPED_FOOD = 20,
         ADD_TIME_FOOD = 21,
     }
+
+    [Serializable]
+    public class ManualFoodRecord
+    {
+        /// <summary>
+        /// grillIndex -> list of food unit IDs on that grill
+        /// Example: {0: [0,1], 1: [2]} means units 0,1 on grill 0, unit 2 on grill 1
+        /// </summary>
+        public List<int> grillIndices;
+        public List<List<int>> foodUnitsPerGrill;
+
+        public Dictionary<int, List<int>> GetGrillToFoodMapping()
+        {
+            var mapping = new Dictionary<int, List<int>>();
+            for (int i = 0; i < grillIndices.Count; i++)
+            {
+                mapping[grillIndices[i]] = foodUnitsPerGrill[i];
+            }
+
+            return mapping;
+        }
+    }
+    
 }
