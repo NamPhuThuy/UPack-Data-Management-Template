@@ -124,6 +124,7 @@ namespace NamPhuThuy.Data
     public class LevelRecord
     {
         public int levelID;
+        public float duration;
         public ConceptRecord.ConceptType conceptType;
         public List<GrillRecord> grillRecords;
     }
@@ -135,5 +136,18 @@ namespace NamPhuThuy.Data
         public GrillType type;
         public List<FoodType> foodList;
         // public List<int> foodId;
+    }
+
+    public enum MechanicType
+    {
+        NONE = 0,
+        
+        /*Skewers*/
+        SIMPLE_LOCKED_SKEWER = 1,
+        ADS_LOCKED_SKEWER = 2,
+        
+        /*Food*/
+        SILVER_PAPE_WRAPPED_FOOD = 20,
+        ADD_TIME_FOOD = 21,
     }
 }
