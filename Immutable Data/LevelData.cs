@@ -81,6 +81,7 @@ namespace NamPhuThuy.Data
 
         private void EnsureDict()
         {
+            DebugLogger.Log();
             if (_dictLevelData != null) return;
             _dictLevelData = new Dictionary<int, LevelRecord>(allLevels?.Length ?? 0);
             if (_dictLevelData == null) return;
@@ -99,7 +100,6 @@ namespace NamPhuThuy.Data
                     continue;
                 }
 
-                DebugLogger.Log(message:$"levelId: {level.levelID}, level: {level}");
                 _dictLevelData[level.levelID] = level;
             }
         }

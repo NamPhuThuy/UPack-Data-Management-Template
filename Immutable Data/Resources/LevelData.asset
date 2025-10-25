@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allLevels:
   - levelID: 0
+    foodTypeNum: 0
+    grillNum: 0
+    grillEmpty: 0
+    duration: 0
     conceptType: 1
     grillRecords:
     - grillId: 0
@@ -24,14 +28,20 @@ MonoBehaviour:
       foodList: 010000000100000002000000
     - grillId: 2
       type: 1
-      foodList: 03000000
+      foodList: 0300000001000000
     - grillId: 3
       type: 1
       foodList: 
+    mechanicRecords: []
   - levelID: 1
+    foodTypeNum: 0
+    grillNum: 0
+    grillEmpty: 0
+    duration: 0
     conceptType: 0
     grillRecords:
     - grillId: 0
       type: 0
       foodList: 
+    mechanicRecords: []
   coinReward: 0
