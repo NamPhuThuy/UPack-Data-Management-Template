@@ -15,6 +15,7 @@ MonoBehaviour:
   allLevels:
   - levelID: 0
     foodTypeNum: 0
+    foodAmount: 16
     grillNum: 0
     grillEmpty: 0
     duration: 0
@@ -39,23 +40,24 @@ MonoBehaviour:
       type: 1
       foodList: 030000000400000004000000
     - grillId: 6
-      type: 0
+      type: 1
       foodList: 
     - grillId: 7
-      type: 0
+      type: 1
       foodList: 
     - grillId: 8
-      type: 0
+      type: 1
       foodList: 
     - grillId: 9
-      type: 0
+      type: 1
       foodList: 
     - grillId: 10
-      type: 0
+      type: 1
       foodList: 
     mechanicRecords: []
   - levelID: 1
     foodTypeNum: 0
+    foodAmount: 0
     grillNum: 0
     grillEmpty: 0
     duration: 0

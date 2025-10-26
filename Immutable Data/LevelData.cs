@@ -38,30 +38,56 @@ namespace NamPhuThuy.Data
 
             for (int i = 0; i < allLevels.Length; i++)
             {
-                if (allLevels[i] == null)
+                
+                LevelRecord levelRecord = allLevels[i];
+                if (levelRecord == null)
                     continue;
 
                 // Update level ID
-                if (allLevels[i].levelID != i)
+                if (levelRecord.levelID != i)
                 {
-                    allLevels[i].levelID = i;
+                    levelRecord.levelID = i;
                     needsUpdate = true;
                 }
 
-                // Update grill IDs within each level
-                if (allLevels[i].grillRecords != null)
+                if (levelRecord.grillRecords == null)
                 {
-                    for (int j = 0; j < allLevels[i].grillRecords.Count; j++)
-                    {
-                        if (allLevels[i].grillRecords[j] == null)
-                            continue;
+                    continue;
+                }
 
-                        if (allLevels[i].grillRecords[j].grillId != j)
-                        {
-                            allLevels[i].grillRecords[j].grillId = j;
-                            needsUpdate = true;
-                        }
+                // Update grill IDs within each level
+                for (int j = 0; j < levelRecord.grillRecords.Count; j++)
+                {
+                    if (levelRecord.grillRecords[j] == null)
+                        continue;
+                    
+                    GrillRecord grillRecord = levelRecord.grillRecords[j];
+
+                    if (grillRecord.grillId != j)
+                    {
+                        grillRecord.grillId = j;
+                        needsUpdate = true;
                     }
+                }
+                
+                // Count food
+                int foodCnt = 0;
+                for (int j = 0; j < levelRecord.grillRecords.Count; j++)
+                {
+                    if (levelRecord.grillRecords[j] == null)
+                        continue;
+                    GrillRecord grillRecord = levelRecord.grillRecords[j];
+                    
+                    if (grillRecord.foodList == null)
+                        continue;
+                    
+                    foodCnt += grillRecord.foodList.Count;
+                }
+                
+                if (levelRecord.foodAmount != foodCnt)
+                {
+                    levelRecord.foodAmount = foodCnt;
+                    needsUpdate = true;
                 }
             }
 
@@ -125,6 +151,7 @@ namespace NamPhuThuy.Data
     {
         public int levelID;
         public int foodTypeNum; // number of different food types in this level
+        public int foodAmount;
         public int grillNum;
         public int grillEmpty;
         
