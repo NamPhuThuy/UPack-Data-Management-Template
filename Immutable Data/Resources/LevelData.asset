@@ -22,10 +22,10 @@ MonoBehaviour:
     grillRecords:
     - grillId: 0
       type: 1
-      foodList: 01000000020000000300000004000000
+      foodList: 01000000020000000400000004000000
     - grillId: 1
       type: 1
-      foodList: 01000000010000000200000004000000
+      foodList: 01000000010000000200000002000000
     - grillId: 2
       type: 1
       foodList: 0300000001000000
@@ -34,10 +34,10 @@ MonoBehaviour:
       foodList: 
     - grillId: 4
       type: 1
-      foodList: 020000000300000004000000
+      foodList: 020000000300000003000000
     - grillId: 5
       type: 1
-      foodList: 030000000200000004000000
+      foodList: 030000000400000004000000
     - grillId: 6
       type: 0
       foodList: 
