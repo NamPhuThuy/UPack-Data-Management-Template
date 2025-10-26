@@ -18,7 +18,7 @@ MonoBehaviour:
     foodAmount: 16
     grillNum: 0
     grillEmpty: 0
-    duration: 0
+    duration: 100
     conceptType: 1
     grillRecords:
     - grillId: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     foodAmount: 0
     grillNum: 0
     grillEmpty: 0
-    duration: 0
+    duration: 100
     conceptType: 0
     grillRecords:
     - grillId: 0
