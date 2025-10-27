@@ -12,6 +12,9 @@ namespace NamPhuThuy.Data
     public class BoosterRecord
     {
         public BoosterType boosterType;
+        public int unlockLevel;
+        
+        
         public string boosterName;
         public Sprite gameplayImage;
         public Sprite inventoryImage;
