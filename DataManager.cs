@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using MoreMountains.Tools;
 using NamPhuThuy.Common;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ JSON for:
 - Anything that needs to change after build
 */
 
-    public partial class DataManager : Singleton<DataManager>
+    public partial class DataManager : Singleton<DataManager>, MMEventListener<EBoosterActivated>
     {
         #region Private Fields
 
@@ -218,29 +219,25 @@ JSON for:
 
         private void MinusBoosterAmount(BoosterType type)
         {
-            ResourceReward reward = new ResourceReward()
-            {
-                resourceType = ResourceType.BOOSTER,
-                boosterType = type,
-                amount = -1
-            };
-
-            /*if (PlayerData.TryApplyReward(reward))
-            {
-                DebugLogger.Log($"DataManager.MinusBoosterAmount() done", Color.black);
-            }
-
-            else
-            {
-                DebugLogger.Log($"DataManager.MinusBoosterAmount() failed", Color.black);
-            }*/
             var n = PlayerData.GetBoosterNum(type);
             PlayerData.SetBoosterNum(type, Mathf.Max(0, n - 1));
         }
 
         #endregion
 
+        #region MMEvent Listen
 
+        public void OnMMEvent(EBoosterActivated eventData)
+        {
+            MinusBoosterAmount(eventData.BoosterType);
+            MMEventManager.TriggerEvent(new EResourceUpdated()
+            {
+                ResourceType = ResourceType.BOOSTER
+            });
+        }
+
+        #endregion
+        
     }
 
 #if UNITY_EDITOR
@@ -299,7 +296,7 @@ JSON for:
     public enum BoosterType
     {
         NONE = 0,
-        UNDO = 1,
+        TIMER = 1,
         CLEAR_A_FOOD_TYPE = 2,
         SHUFFLE = 3,
         MORE_GRILL = 7,

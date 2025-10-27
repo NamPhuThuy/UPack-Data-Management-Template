@@ -29,26 +29,6 @@ namespace NamPhuThuy.Data
             set => isLoopLevel = value;
         }
 
-        public int numLevelLoop;
-        public int NumLevelLoop
-        {
-            get => numLevelLoop;
-            set => numLevelLoop = value;
-        }
-
-        public int currentLevelLoop;
-        public int CurrentLevelLoop
-        {
-            get => currentLevelLoop;
-            set => currentLevelLoop = value;
-        }
-
-        public bool isCurrentLevelLoopRandomized;
-        public bool IsCurrentLevelLoopRandomized
-        {
-            get => isCurrentLevelLoopRandomized;
-            set => isCurrentLevelLoopRandomized = value;
-        }
         #endregion
 
         #region Consent
@@ -61,18 +41,6 @@ namespace NamPhuThuy.Data
         }
 
         #endregion
-
-        public int currentBackgroundId;
-        public int CurrentBackgroundId
-        {
-            get => currentBackgroundId;
-            set
-            {
-                currentBackgroundId = value;
-                currentBackgroundId = Math.Max(0, value);
-                DataManager.Ins.MarkDirty();
-            }
-        }
 
         public int coin;
         public int Coin
@@ -89,10 +57,7 @@ namespace NamPhuThuy.Data
         }
 
         public bool isRemoveAds;
-        public bool IsRemoveAds => isRemoveAds;
-
         
-
         public List<PlayerBoosterData> boosters = new List<PlayerBoosterData>();
 
         public PlayerData(int currentLevelId = 0, int coin = 0)
@@ -100,14 +65,11 @@ namespace NamPhuThuy.Data
             this.CurrentLevelId = currentLevelId;
             this.Coin = coin;
             this.isRemoveAds = false;
-            // EnsureIndex(); 
         }
 
         #region Tutorial Rewards Tracking
         
-        // Persisted list (JSON-friendly)
         public List<int> grantedLevelRewardIds = new List<int>();
-        // Fast lookup at runtime (not serialized)
         [NonSerialized] private HashSet<int> _grantedLevelRewardSet;
 
         private void EnsureGrantedSet()
@@ -200,6 +162,65 @@ namespace NamPhuThuy.Data
         }
         #endregion
         
+        #region Booster Helpers
+
+        public int GetBoosterNum(BoosterType type)
+        {
+            var entry = boosters.Find(b => b.boosterType == type);
+            return entry?.amount ?? 0;
+        }
+        
+        public void AddBooster(BoosterType type, int amount)
+        {
+            if (amount <= 0) return;
+
+            var entry = boosters.Find(b => b.boosterType == type);
+            if (entry != null)
+            {
+                entry.amount = Math.Max(0, entry.amount + amount);
+            }
+            else
+            {
+                boosters.Add(new PlayerBoosterData { boosterType = type, amount = Math.Max(0, amount) });
+            }
+
+            DataManager.Ins.MarkDirty();
+        }
+
+        public void SetBoosterNum(BoosterType type, int count)
+        {
+            var entry = boosters.Find(b => b.boosterType == type);
+            if (entry != null)
+                entry.amount = count;
+            else
+                boosters.Add(new PlayerBoosterData { boosterType = type, amount = count });
+
+            DataManager.Ins.MarkDirty();
+        }
+
+        public void ClearBoosters()
+        {
+            SetBoosterNum(BoosterType.TIMER, 0);
+            SetBoosterNum(BoosterType.SHUFFLE, 0);
+            SetBoosterNum(BoosterType.CLEAR_A_FOOD_TYPE, 0);
+        }
+        
+        [Serializable]
+        public class PlayerBoosterData
+        {
+            public BoosterType boosterType;
+            public int amount;
+        }
+
+        #endregion
+        #region NoAds Helpers
+
+        public void ActiveNoAds()
+        {
+            isRemoveAds = true;
+        }
+
+        #endregion
         /// <summary>
         /// Apply a list of rewards to the player. Returns true if anything was granted.
         /// </summary>
@@ -263,67 +284,13 @@ namespace NamPhuThuy.Data
             }
             return TryApplyRewards(new List<ResourceReward> { item }, amountMultiplier);
         }
-
-        #endregion
-
-        #region Booster Helpers
-
-        public int GetBoosterNum(BoosterType type)
-        {
-            /*EnsureIndex();
-            return _boosterMap.TryGetValue(type, out var count) ? count : 0;*/
-
-            var entry = boosters.Find(b => b.boosterType == type);
-            return entry != null ? entry.amount : 0;
-        }
-
-        public void SetBoosterNum(BoosterType type, int count)
-        {
-            /*EnsureIndex();
-            count = Math.Max(0, count);
-
-            var old = GetBoosterNum(type);
-            if (old == count) return;
-
-            _boosterMap[type] = count;
-            UpsertBoosterList(type, count);
-
-            DataManager.Ins.MarkDirty();
-            MMEventManager.TriggerEvent(new EBoosterDataUpdated(type));*/
-
-
-            var entry = boosters.Find(b => b.boosterType == type);
-            if (entry != null)
-                entry.amount = count;
-            else
-                boosters.Add(new PlayerBoosterData { boosterType = type, amount = count });
-
-            DataManager.Ins.MarkDirty();
-        }
-
-        public void ClearBoosters()
-        {
-            SetBoosterNum(BoosterType.UNDO, 0);
-            SetBoosterNum(BoosterType.SHUFFLE, 0);
-            SetBoosterNum(BoosterType.CLEAR_A_FOOD_TYPE, 0);
-        }
         
-        [Serializable]
-        public class PlayerBoosterData
-        {
-            public BoosterType boosterType;
-            public int amount;
-        }
+       
 
         #endregion
 
-        #region NoAds Helpers
+        
 
-        public void ActiveNoAds()
-        {
-            isRemoveAds = true;
-        }
-
-        #endregion
+       
     }
 }
