@@ -302,6 +302,8 @@ JSON for:
         UNDO = 1,
         CLEAR_A_FOOD_TYPE = 2,
         SHUFFLE = 3,
+        MORE_GRILL = 7,
+        EXTRA_HEART = 8
 
     }
 
