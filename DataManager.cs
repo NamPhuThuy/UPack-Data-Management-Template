@@ -106,8 +106,10 @@ JSON for:
             
             //example: origin = "{"name":"NamTrinh","level":12,"currentExpPoint":31.0}"
             string origin = JsonUtility.ToJson(data);
-            string encrypted = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
-            File.WriteAllText(path, encrypted);
+            // string encrypted = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
+            // File.WriteAllText(path, encrypted);
+            
+            File.WriteAllText(path, origin);
         }
 
         private T LoadMutableData<T>(string fileName, Func<T> resetAction) where T : class
@@ -126,8 +128,8 @@ JSON for:
                     string data = File.ReadAllText(path);
                     
                     //Large string operations can be memory and CPU intensive
-                    string decrypted = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
-                    return JsonUtility.FromJson<T>(decrypted);
+                    // string decrypted = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
+                    return JsonUtility.FromJson<T>(data);
                 }
                 catch (Exception e)
                 {
@@ -219,8 +221,15 @@ JSON for:
 
         private void MinusBoosterAmount(BoosterType type)
         {
-            var n = PlayerData.GetBoosterNum(type);
-            PlayerData.SetBoosterNum(type, Mathf.Max(0, n - 1));
+            try
+            {
+                var n = PlayerData.GetBoosterNum(type);
+                PlayerData.SetBoosterNum(type, Mathf.Max(0, n - 1));
+            }
+            catch (Exception e)
+            {
+                DebugLogger.LogError(message:$"Error: {e}", context:this);
+            }
         }
 
         #endregion
@@ -229,6 +238,7 @@ JSON for:
 
         public void OnMMEvent(EBoosterActivated eventData)
         {
+            DebugLogger.Log(message:$"Data", context:this);
             MinusBoosterAmount(eventData.BoosterType);
             MMEventManager.TriggerEvent(new EResourceUpdated()
             {

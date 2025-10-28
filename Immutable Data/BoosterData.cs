@@ -41,6 +41,13 @@ namespace NamPhuThuy.Data
                 _lookup[booster.boosterType] = booster; // last one wins if duplicates
             }
         }
+        
+        public Sprite GetGamePlaySprite(BoosterType type)
+        {
+            var data = GetBoosterData(type);
+            if (data == null) return null;
+            return data.gameplayImage;  
+        }
 
         /// <summary>
         /// Finds booster info by its type.

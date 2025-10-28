@@ -24,7 +24,10 @@ namespace NamPhuThuy.Data
 
         public PlayerSettingsData()
         {
-            throw new NotImplementedException();
+            this.musicEnabled = true;
+            this.sfxEnabled = true;
+            this.vibrationEnabled = true;
+            this.notifyEnabled = true;
         }
     }
 }

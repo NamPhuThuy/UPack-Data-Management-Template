@@ -9,7 +9,6 @@ namespace NamPhuThuy.Data
     [Serializable]
     public class PlayerData
     {
-        #region LEVEL
         public int currentLevelId;
         public int CurrentLevelId
         {
@@ -21,26 +20,6 @@ namespace NamPhuThuy.Data
                 DataManager.Ins.MarkDirty();
             }
         }
-
-        public bool isLoopLevel;
-        public bool IsLoopLevel
-        {
-            get => isLoopLevel;
-            set => isLoopLevel = value;
-        }
-
-        #endregion
-
-        #region Consent
-
-        public bool isAllowPersonalizedAds = true;
-        public bool IsAllowPersonalizedAds
-        {
-            get => isAllowPersonalizedAds;
-            set => isAllowPersonalizedAds = value;
-        }
-
-        #endregion
 
         public int coin;
         public int Coin
@@ -107,7 +86,9 @@ namespace NamPhuThuy.Data
 
         public PlayerData()
         {
-            throw new NotImplementedException();
+            this.CurrentLevelId = 0;
+            this.Coin = 0;
+            this.isRemoveAds = false;
         }
 
         public long LastFreeFortuneSpinTs

@@ -12,4 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60046b67a587865448bbef3c9cb92666, type: 3}
   m_Name: BoosterData
   m_EditorClassIdentifier: 
-  allBoosters: []
+  allBoosters:
+  - boosterType: 1
+    unlockLevel: 0
+    boosterName: 
+    gameplayImage: {fileID: -2988495671757562167, guid: 32209f250880a0c4396c9790ae93d23d, type: 3}
+    inventoryImage: {fileID: 0}
+  - boosterType: 2
+    unlockLevel: 0
+    boosterName: 
+    gameplayImage: {fileID: 1227443825274798320, guid: 02119ce34cbf1cf4aa488f9bb284115a, type: 3}
+    inventoryImage: {fileID: 0}
+  - boosterType: 3
+    unlockLevel: 0
+    boosterName: 
+    gameplayImage: {fileID: 21300000, guid: f453f42b47f26624a8a2dc4b73ae90e1, type: 3}
+    inventoryImage: {fileID: 0}
