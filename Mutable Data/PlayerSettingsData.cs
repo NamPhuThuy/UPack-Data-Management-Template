@@ -22,12 +22,13 @@ namespace NamPhuThuy.Data
             this.notifyEnabled = notifyEnabled;
         }
 
-        public PlayerSettingsData()
+        // For reflection serialization
+        /*public PlayerSettingsData()
         {
             this.musicEnabled = true;
             this.sfxEnabled = true;
             this.vibrationEnabled = true;
             this.notifyEnabled = true;
-        }
+        }*/
     }
 }

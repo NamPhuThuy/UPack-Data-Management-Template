@@ -15,7 +15,8 @@ namespace NamPhuThuy.Data
             {
                 if (_instance == null)
                 {
-                    T[] objs = Object.FindObjectsByType<T>(FindObjectsSortMode.None);
+                    // T[] objs = Object.FindObjectsByType<T>(FindObjectsSortMode.None);
+                    T[] objs = FindObjectsOfType<T>();
                     if (objs.Length > 0)
                     {
                         T instance = objs[0];

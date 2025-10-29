@@ -76,7 +76,7 @@ namespace NamPhuThuy.Data
             if (!_dictIntDailyReward.TryGetValue(dayId, out var reward)) return false;
             if (reward.rewards == null) return false;
             
-            return DataManager.Ins.PlayerData.TryApplyRewards(reward.rewards);
+            return DataManagerChecked.Ins.PlayerData.TryApplyRewards(reward.rewards);
         }
         
         #endregion

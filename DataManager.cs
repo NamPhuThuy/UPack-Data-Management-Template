@@ -64,12 +64,12 @@ JSON for:
 
         public void ResetPlayerData()
         {
-            ResetMutableData(ref cachedPlayerData, ref _isPlayerDataLoaded, "player");
+            // ResetMutableData(ref cachedPlayerData, ref _isPlayerDataLoaded, "player");
         }
 
         public void ResetSettingsData()
         {
-            ResetMutableData(ref cachedPlayerSettingsData, ref _isSettingsDataLoaded, "settings");
+            // ResetMutableData(ref cachedPlayerSettingsData, ref _isSettingsDataLoaded, "settings");
         }
 
 
