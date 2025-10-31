@@ -47,6 +47,16 @@ namespace NamPhuThuy.Data
             return _dictResourceData != null && _dictResourceData.TryGetValue(resourceType, out var record) ? record : null;
         }
         
+        public Sprite GetResourceGameplayImage(ResourceType resourceType)
+        {
+            EnsureIndex();
+            if (_dictResourceData != null && _dictResourceData.TryGetValue(resourceType, out var record))
+            {
+                return record.gameplayImage;
+            }
+            return null;
+        }
+        
         public int GetBoosterPrice(BoosterType boosterType)
         {
             EnsureIndex();

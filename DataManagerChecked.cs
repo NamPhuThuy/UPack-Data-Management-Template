@@ -443,4 +443,25 @@ JSON for:
         }
     }
 #endif
+    
+    public enum ResourceType
+    {
+        NONE = 0,
+        COIN = 1,
+        BOOSTER = 2,
+        HEART = 3,
+        NO_ADS = 5,
+    }
+
+  
+
+   
+
+    public enum GrillType
+    {
+        NONE = 0,
+        NORMAL = 1,
+        FREEZE = 2,
+        LOCKED = 3
+    }
 }

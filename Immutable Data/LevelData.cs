@@ -138,6 +138,10 @@ namespace NamPhuThuy.Data
             return _dictLevelData.GetValueOrDefault(levelId);
         }
 
+        /// <summary>
+        /// The total number of levels
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalLevels()
         {
             return allLevels?.Length ?? 0;

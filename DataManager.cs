@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.IO;
 using MoreMountains.Tools;
@@ -23,7 +23,7 @@ JSON for:
 - User settings
 - Dynamic content updates
 - Anything that needs to change after build
-*/
+#1#
 
     public partial class DataManager : Singleton<DataManager>, MMEventListener<EBoosterActivated>
     {
@@ -124,7 +124,7 @@ JSON for:
                  File.ReadAllText(_savePath) reads from disk
                  Disk operations are significantly slower than memory operations
                  Can cause frame drops if called during gameplay
-                 */
+                 #1#
                     string data = File.ReadAllText(path);
                     
                     //Large string operations can be memory and CPU intensive
@@ -205,13 +205,13 @@ JSON for:
                 return false;
 
 
-            /*// Print all Resources folders to help debug
+            /#1#/ Print all Resources folders to help debug
         Object[] resourcesFolders = Resources.FindObjectsOfTypeAll<DefaultAsset>();
         foreach (Object folder in resourcesFolders) {
             if (AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(folder))) {
                 Debug.Log("Resources Folder: " + AssetDatabase.GetAssetPath(folder));
             }
-        }*/
+        }#1#
 
             return true;
         }
@@ -294,34 +294,6 @@ JSON for:
     }
 #endif
 
-    public enum ResourceType
-    {
-        NONE = 0,
-        COIN = 1,
-        BOOSTER = 2,
-        HEART = 3,
-        NO_ADS = 5,
-    }
-
-    public enum BoosterType
-    {
-        NONE = 0,
-        TIMER = 1,
-        CLEAR_A_FOOD_TYPE = 2,
-        SHUFFLE = 3,
-        MORE_GRILL = 7,
-        EXTRA_HEART = 8
-
-    }
-
-   
-
-    public enum GrillType
-    {
-        NONE = 0,
-        NORMAL = 1,
-        FREEZE = 2,
-        LOCKED = 3
-    }
     
-}
+    
+}*/
