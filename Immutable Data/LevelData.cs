@@ -107,7 +107,7 @@ namespace NamPhuThuy.Data
 
         private void EnsureDict()
         {
-            DebugLogger.Log();
+            // DebugLogger.Log();
             if (_dictLevelData != null) return;
             _dictLevelData = new Dictionary<int, LevelRecord>(allLevels?.Length ?? 0);
             if (_dictLevelData == null) return;
@@ -132,7 +132,7 @@ namespace NamPhuThuy.Data
         
         public LevelRecord GetLevelData(int levelId)
         {
-            DebugLogger.Log(message:$"Get level data: {levelId}", context:this);
+            // DebugLogger.Log(message:$"Get level data: {levelId}", context:this);
             EnsureDict();
             if (_dictLevelData == null) return null;
             return _dictLevelData.GetValueOrDefault(levelId);
