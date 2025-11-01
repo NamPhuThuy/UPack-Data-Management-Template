@@ -9,7 +9,7 @@ namespace NamPhuThuy.Data
     [Serializable]
     public class PlayerData
     {
-        public int currentLevelId;
+        [SerializeField] private int currentLevelId;
         public int CurrentLevelId
         {
             get => currentLevelId;

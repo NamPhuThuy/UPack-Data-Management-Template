@@ -26,7 +26,7 @@ JSON for:
 - Anything that needs to change after build
 */
 
-    public class DataManagerChecked : Singleton<DataManagerChecked>, MMEventListener<EBoosterActivated>
+    public class DataManagerChecked : Singleton<DataManagerChecked>, MMEventListener<EBoosterActivated>, MMEventListener<ELevelFinished>
     {
         #region Private Fields
         private Coroutine _saveDebounce;
@@ -389,6 +389,8 @@ JSON for:
         #endregion
 
 
+        #region MMEvent Listeners
+        
         public void OnMMEvent(EBoosterActivated eventData)
         {
             DebugLogger.Log(message:$"Data", context:this);
@@ -398,6 +400,18 @@ JSON for:
                 ResourceType = ResourceType.BOOSTER
             });
         }
+        
+        public void OnMMEvent(ELevelFinished eventData)
+        {
+            if (eventData.IsWin)
+            {
+                PlayerData.CurrentLevelId++;
+            }
+        }
+        
+        #endregion
+
+        
     }
 
 #if UNITY_EDITOR
