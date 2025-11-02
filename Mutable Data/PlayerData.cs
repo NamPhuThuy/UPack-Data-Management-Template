@@ -19,6 +19,7 @@ namespace NamPhuThuy.Data
                 currentLevelId = Math.Max(0, value);
                 DataManagerChecked.Ins.MarkDirty();
             }
+            
         }
 
         public int coin;

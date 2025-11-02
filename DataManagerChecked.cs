@@ -467,15 +467,12 @@ JSON for:
         NO_ADS = 5,
     }
 
-  
-
-   
-
     public enum GrillType
     {
         NONE = 0,
         NORMAL = 1,
         FREEZE = 2,
-        LOCKED = 3
+        ADS_LOCKED = 3,
+        FOOD_LOCKED = 4
     }
 }
