@@ -36,6 +36,20 @@ namespace NamPhuThuy.Data
             }
         }
 
+        public int health;
+        public int Health
+        {
+            get => health;
+            set
+            {
+                health = value;
+                health = Math.Max(0, value);
+
+                DataManagerChecked.Ins.MarkDirty();
+                // MMEventManager.TriggerEvent(new EResourceUpdated(ResourceType.HEALTH));
+            }
+        }
+
         public bool isRemoveAds;
         
         public List<PlayerBoosterData> boosters = new List<PlayerBoosterData>();
