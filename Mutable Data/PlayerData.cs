@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using NamPhuThuy.Common;
 using UnityEngine;
 
@@ -184,6 +185,10 @@ namespace NamPhuThuy.Data
             }
 
             DataManagerChecked.Ins.MarkDirty();
+            MMEventManager.TriggerEvent(new EResourceUpdated()
+            {
+                ResourceType = ResourceType.BOOSTER
+            });
         }
 
         public void SetBoosterNum(BoosterType type, int count)
