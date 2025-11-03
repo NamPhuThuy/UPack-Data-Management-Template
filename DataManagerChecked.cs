@@ -173,6 +173,21 @@ JSON for:
                 return conceptData;
             }
         }
+        
+        [SerializeField] private EventRewardData eventRewardData;
+
+        public EventRewardData EventRewardData
+        {
+            get
+            {
+                if (eventRewardData == null)
+                {
+                    eventRewardData = Resources.Load<EventRewardData>("EventRewardData");
+                }
+
+                return eventRewardData;
+            }
+        }
 
         #endregion
 
@@ -366,7 +381,7 @@ JSON for:
 
         private void MinusBoosterAmount(BoosterType type)
         {
-            ResourceReward reward = new ResourceReward()
+            ResourceAmount amount = new ResourceAmount()
             {
                 resourceType = ResourceType.BOOSTER,
                 boosterType = type,

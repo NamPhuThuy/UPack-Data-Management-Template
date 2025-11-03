@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
+using NamPhuThuy.Common;
 using UnityEditor;
 #endif
 
@@ -23,22 +25,59 @@ namespace NamPhuThuy.Data
     [CreateAssetMenu(fileName = "BoosterData", menuName = "Game/BoosterData")]
     public class BoosterData : ScriptableObject
     {
-        public BoosterRecord[] allBoosters;
+        [FormerlySerializedAs("allBoosters")] public BoosterRecord[] data;
         
         // internal cache for faster lookups
-        private Dictionary<BoosterType, BoosterRecord> _lookup;
+        private Dictionary<BoosterType, BoosterRecord> _dataDict;
+
+        #region Callbacks
+
+        private void OnValidate()
+        {
+#if UNITY_EDITOR
+            if (data == null || data.Length == 0) return;
+
+            var typesSeen = new HashSet<BoosterType>();
+            var duplicates = new List<BoosterType>();
+
+            foreach (var booster in data)
+            {
+                if (booster == null) continue;
+        
+                if (booster.boosterType == BoosterType.NONE) continue;
+
+                if (!typesSeen.Add(booster.boosterType))
+                {
+                    if (!duplicates.Contains(booster.boosterType))
+                    {
+                        duplicates.Add(booster.boosterType);
+                    }
+                }
+            }
+
+            if (duplicates.Count > 0)
+            {
+                DebugLogger.LogError(message:$"[BoosterData] Duplicate BoosterTypes found: {string.Join(", ", duplicates)}", context: this);
+            }
+
+            // Clear the cached dictionary to force rebuild on next lookup
+            _dataDict = null;
+#endif
+        }
+
+        #endregion
         
         private void BuildIndex()
         {
-            if (_lookup != null) return;
+            if (_dataDict != null) return;
 
-            _lookup = new Dictionary<BoosterType, BoosterRecord>();
-            if (allBoosters == null) return;
+            _dataDict = new Dictionary<BoosterType, BoosterRecord>();
+            if (data == null) return;
 
-            foreach (var booster in allBoosters)
+            foreach (var booster in data)
             {
                 if (booster == null) continue;
-                _lookup[booster.boosterType] = booster; // last one wins if duplicates
+                _dataDict[booster.boosterType] = booster; // last one wins if duplicates
             }
         }
         
@@ -56,7 +95,7 @@ namespace NamPhuThuy.Data
         public BoosterRecord GetBoosterData(BoosterType type)
         {
             BuildIndex();
-            return _lookup.TryGetValue(type, out var data) ? data : null;
+            return _dataDict.TryGetValue(type, out var data) ? data : null;
         }
     }
     

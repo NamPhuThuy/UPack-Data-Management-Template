@@ -89,25 +89,48 @@ namespace NamPhuThuy.Data
         public Sprite inventoryImage;
         
         public string description;
-        public List<ResourceReward> priceInResources;
+        public List<ResourceAmount> priceInResources;
     }
     
     [Serializable]
-    public class ResourceReward
+    public class ResourceAmount
     {
         public ResourceType resourceType;
         
-        [ShowIf("resourceType", ResourceType.BOOSTER)]
+        [ShowIf(nameof(resourceType), ResourceType.BOOSTER)]
         public BoosterType boosterType;
 
-        // (Optional future: flags for random picture by style/rarity)
         public int amount;
 
-        public ResourceReward(ResourceType resourceType = ResourceType.COIN, BoosterType boosterType = BoosterType.NONE, int pictureId = -1, int amount = 0)
+        public ResourceAmount(ResourceType resourceType = ResourceType.COIN, BoosterType boosterType = BoosterType.NONE, int pictureId = -1, int amount = 0)
         {
             this.resourceType = resourceType;
             this.boosterType = boosterType;
             this.amount = amount;
         }
     }
+    
+    public static class ResourceAmountListExtensions
+    {
+        /// <summary>
+        /// Gets the amount of coins from the resource list.
+        /// Returns 0 if no coin resource is found.
+        /// </summary>
+        public static int GetCoinAmount(this List<ResourceAmount> resources)
+        {
+            if (resources == null || resources.Count == 0) return 0;
+    
+            foreach (var resource in resources)
+            {
+                if (resource == null) continue;
+                if (resource.resourceType == ResourceType.COIN)
+                {
+                    return resource.amount;
+                }
+            }
+    
+            return 0;
+        }
+    }
+    
 }

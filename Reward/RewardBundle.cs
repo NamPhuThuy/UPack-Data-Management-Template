@@ -52,7 +52,7 @@ public struct RewardBundle
         }
     }
 
-    public RewardBundle(List<ResourceReward> rewards)
+    public RewardBundle(List<ResourceAmount> rewards)
     {
         coinQuantity = 0;
         boosterQuantities = new int[3];

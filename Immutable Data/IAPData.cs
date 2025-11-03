@@ -88,7 +88,7 @@ namespace NamPhuThuy.Data
         public string description;
         public string price;
 
-        public List<ResourceReward> rewardList;
+        public List<ResourceAmount> rewardList;
         
         public int GetResourceAmount(ResourceType type)
         {

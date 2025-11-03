@@ -85,7 +85,7 @@ namespace NamPhuThuy.Data
         public class DailyRewardRecord
         {
             public int dayId;
-            public List<ResourceReward> rewards;
+            public List<ResourceAmount> rewards;
         }
     }
 

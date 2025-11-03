@@ -209,7 +209,7 @@ namespace NamPhuThuy.Data
         /// <summary>
         /// Apply a list of rewards to the player. Returns true if anything was granted.
         /// </summary>
-        public bool TryApplyRewards(IList<ResourceReward> rewards, int amountMultiplier = 1)
+        public bool TryApplyRewards(IList<ResourceAmount> rewards, int amountMultiplier = 1)
         {
             if (rewards == null || rewards.Count == 0) return false;
 
@@ -261,13 +261,13 @@ namespace NamPhuThuy.Data
         /// <summary>
         /// Apply a single reward item. Returns true if granted.
         /// </summary>
-        public bool TryApplyReward(ResourceReward item, int amountMultiplier = 1)
+        public bool TryApplyReward(ResourceAmount item, int amountMultiplier = 1)
         {
             if (item == null)
             {
                 return false;
             }
-            return TryApplyRewards(new List<ResourceReward> { item }, amountMultiplier);
+            return TryApplyRewards(new List<ResourceAmount> { item }, amountMultiplier);
         }
         
        
