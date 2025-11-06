@@ -12,19 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60046b67a587865448bbef3c9cb92666, type: 3}
   m_Name: BoosterData
   m_EditorClassIdentifier: 
-  allBoosters:
+  data:
   - boosterType: 1
-    unlockLevel: 10
+    unlockLevel: 3
+    price:
+    - resourceType: 1
+      boosterType: 0
+      amount: 500
     boosterName: 
     gameplayImage: {fileID: -2988495671757562167, guid: 32209f250880a0c4396c9790ae93d23d, type: 3}
     inventoryImage: {fileID: 0}
-  - boosterType: 2
+  - boosterType: 3
     unlockLevel: 8
+    price:
+    - resourceType: 1
+      boosterType: 0
+      amount: 800
+    boosterName: 
+    gameplayImage: {fileID: 21300000, guid: f453f42b47f26624a8a2dc4b73ae90e1, type: 3}
+    inventoryImage: {fileID: 0}
+  - boosterType: 2
+    unlockLevel: 10
+    price:
+    - resourceType: 1
+      boosterType: 0
+      amount: 1300
     boosterName: 
     gameplayImage: {fileID: 1227443825274798320, guid: 02119ce34cbf1cf4aa488f9bb284115a, type: 3}
     inventoryImage: {fileID: 0}
-  - boosterType: 3
-    unlockLevel: 3
+  - boosterType: 7
+    unlockLevel: 0
+    price:
+    - resourceType: 1
+      boosterType: 0
+      amount: 450
     boosterName: 
-    gameplayImage: {fileID: 21300000, guid: f453f42b47f26624a8a2dc4b73ae90e1, type: 3}
+    gameplayImage: {fileID: 21300000, guid: 90267fa8a9ffff047971c1cf25825190, type: 3}
     inventoryImage: {fileID: 0}

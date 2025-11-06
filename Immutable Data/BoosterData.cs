@@ -15,7 +15,7 @@ namespace NamPhuThuy.Data
     {
         public BoosterType boosterType;
         public int unlockLevel;
-        
+        public List<ResourceAmount> price;
         
         public string boosterName;
         public Sprite gameplayImage;
@@ -86,6 +86,12 @@ namespace NamPhuThuy.Data
             var data = GetBoosterData(type);
             if (data == null) return null;
             return data.gameplayImage;  
+        }
+
+        public List<ResourceAmount> GetPrice(BoosterType type)
+        {
+            var boosterRecord = GetBoosterData(type);
+            return boosterRecord?.price;
         }
 
         /// <summary>

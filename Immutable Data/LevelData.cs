@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NamPhuThuy.Common;
+using NamPhuThuy.GamePlay;
 using UnityEngine;
 
 namespace NamPhuThuy.Data
@@ -172,7 +173,7 @@ namespace NamPhuThuy.Data
     public class GrillRecord
     {
         public int grillId;
-        public GrillType type;
+        public BaseGrill.Type type;
         public FoodType lockedFoodType;
         public List<FoodType> foodList;
         // public List<int> foodId;
