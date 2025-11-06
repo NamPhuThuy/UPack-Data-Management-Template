@@ -23,36 +23,47 @@ MonoBehaviour:
     grillRecords:
     - grillId: 0
       type: 1
+      lockedFoodType: 0
       foodList: 01000000020000000400000004000000
     - grillId: 1
       type: 1
+      lockedFoodType: 0
       foodList: 01000000010000000200000002000000
     - grillId: 2
       type: 1
+      lockedFoodType: 0
       foodList: 0300000001000000
     - grillId: 3
       type: 1
+      lockedFoodType: 0
       foodList: 
     - grillId: 4
       type: 1
+      lockedFoodType: 0
       foodList: 020000000300000003000000
     - grillId: 5
       type: 1
+      lockedFoodType: 0
       foodList: 030000000400000004000000
     - grillId: 6
       type: 1
+      lockedFoodType: 0
       foodList: 0500000006000000
     - grillId: 7
-      type: 1
+      type: 4
+      lockedFoodType: 3
       foodList: 
     - grillId: 8
       type: 1
+      lockedFoodType: 0
       foodList: 050000000500000006000000
     - grillId: 9
       type: 1
+      lockedFoodType: 0
       foodList: 060000000600000005000000
     - grillId: 10
-      type: 1
+      type: 3
+      lockedFoodType: 0
       foodList: 
     mechanicRecords: []
   coinReward: 0
