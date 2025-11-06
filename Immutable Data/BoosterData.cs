@@ -15,6 +15,7 @@ namespace NamPhuThuy.Data
     {
         public BoosterType boosterType;
         public int unlockLevel;
+        public int stackPerBuy;
         public List<ResourceAmount> price;
         
         public string boosterName;
