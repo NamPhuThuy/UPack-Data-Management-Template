@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace NamPhuThuy.Data
+{
+    [CreateAssetMenu(fileName = "#SCRIPTNAME#", menuName = "Game/#SCRIPTNAME#", order = 1)]
+    public class #SCRIPTNAME#Data : ScriptableObject
+    {
+        [SerializeField] private List<#SCRIPTNAME#Record> data = new List<#SCRIPTNAME#Record>();
+
+        private Dictionary<int, #SCRIPTNAME#Record> _dictData;
+        
+        public Dictionary<int, #SCRIPTNAME#Record> DictData
+        {
+            get
+            {
+                if (_dictData == null)
+                {
+                    EnsureIndex();
+                }
+
+                return _dictData;
+            }
+        }
+
+        #region MonoBehaviour Callbacks
+
+        private void OnValidate()
+        {
+#if UNITY_EDITOR
+         // Example optional policy: if recordId < 0, auto-assign by row
+         bool changed = false;
+         for (int i = 0; i < data.Count; i++)
+         {
+             var r = data[i];
+             if (r == null) continue;
+             if (r.recordId != i)
+             {
+                 r.recordId = i;
+                 changed = true;
+             }
+         }
+         if (changed) 
+         {
+            EditorUtility.SetDirty(this);
+            _dictData = null; // force rebuild after edits   
+         }
+#endif
+        }
+
+        #endregion
+
+        #region Private Methods
+        
+        private void EnsureIndex()
+        {
+            if (_dictData != null) return;
+            BuildIndex();
+        }
+        
+        private void BuildIndex()
+        {
+            if (data == null || data.Count == 0)
+            {
+                _dictData = new Dictionary<int, #SCRIPTNAME#Record>(0);
+                return;
+            }
+        
+            _dictData = new Dictionary<int, #SCRIPTNAME#Record>(data?.Count ?? 0);
+            if (_dictData == null) return;
+            foreach (var r in data)
+            {
+                if (r == null) continue;
+                _dictData[r.recordId] = r; // last one wins if duplicates
+            }
+        }
+        
+        #endregion
+
+        #region Public Methods
+        
+         public #SCRIPTNAME#Record GetRecord(int recordId)
+        {
+            EnsureIndex();
+            return _dictData.GetValueOrDefault(recordId);
+        }
+        
+        #endregion
+    }
+
+    [System.Serializable]
+    public class #SCRIPTNAME#Record
+    {
+        public int recordId;
+    }
+}
