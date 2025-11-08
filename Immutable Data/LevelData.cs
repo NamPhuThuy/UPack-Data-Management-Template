@@ -166,38 +166,35 @@ namespace NamPhuThuy.Data
         
         public ConceptRecord.ConceptType conceptType;
         public List<GrillRecord> grillRecords;
-        public List<MechanicRecord> mechanicRecords;
     }
     
     [Serializable]
     public class GrillRecord
     {
         public int grillId;
-        public BaseGrill.Type type;
+        public BaseGrill.GrillMechanic grillMechanic;
         public FoodType lockedFoodType;
         public List<FoodType> foodList;
+        public List<FoodMechanicRecord> foodMechanics;
+        public List<GrillMechanicRecord> grillMechanics;
         // public List<int> foodId;
+    }
+
+    [Serializable]
+    public class FoodMechanicRecord
+    {
+        public FoodMechanic mechanic;
+        public int amount;
     }
     
     [Serializable]
-    public class MechanicRecord
+    public class GrillMechanicRecord
     {
-        public MechanicType type;
-        public int value;
+        public BaseGrill.GrillMechanic mechanic;
+        public FoodType lockedFoodType;
+        public int amount;
     }
-
-    public enum MechanicType
-    {
-        NONE = 0,
-        
-        /*Skewers*/
-        SIMPLE_LOCKED_SKEWER = 1,
-        ADS_LOCKED_SKEWER = 2,
-        
-        /*Food*/
-        SILVER_PAPE_WRAPPED_FOOD = 20,
-        ADD_TIME_FOOD = 21,
-    }
+    
 
     [Serializable]
     public class ManualFoodRecord

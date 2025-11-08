@@ -136,5 +136,30 @@ namespace NamPhuThuy.Data
         public int baseScore;
     }
     
+    public enum FoodMechanic
+    {
+        NONE = 0,
+        NORMAL = 1,
+        ADD_TIME = 2,
+        UNKNOW = 3,
+    }
     
+    public enum FoodType
+    {
+        NONE = 0,
+        MEET_SCROLL = 1,
+        CAKE = 2,
+        ICE_CREAM = 3,
+        SHRIMP = 4,
+        HOTDOG = 5,
+        SALAD = 6,
+    }
+    
+    // generate FoodMechanicPair
+    [Serializable]
+    public class FoodMechanicPair
+    {
+        public FoodMechanic mechanic;
+        public int value;
+    }
 }
