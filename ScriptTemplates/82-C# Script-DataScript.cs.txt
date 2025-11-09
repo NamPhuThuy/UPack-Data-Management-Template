@@ -22,7 +22,7 @@ namespace NamPhuThuy.Data
                 if (_dictData == null)
                 {
                     EnsureIndex();
-                }
+                }   
 
                 return _dictData;
             }
