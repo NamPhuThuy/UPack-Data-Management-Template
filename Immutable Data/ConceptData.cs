@@ -134,9 +134,13 @@ namespace NamPhuThuy.Data
         public enum ConceptType
         {
             NONE = 0,
-            CLASSIC = 1,
-            BEACH = 2,
-            FARM = 3,
+            DEFAULT = 1,
+            MEAT = 2,
+            SEA_FOOD = 3,
+            VEGETABLE = 4,
+            FRUIT = 5,
+            STREET_FOOD = 6,
+            NATION_THEME = 7
         }
         
         [Header("Concept Settings")]
