@@ -51,43 +51,18 @@ namespace NamPhuThuy.Data
                     needsUpdate = true;
                 }
 
-                if (levelRecord.grillRecords == null)
+                int grillRequire = levelRecord.foodAmount / GamePlayConst.SKEWER_FOOD_CAPACITY;
+                if (levelRecord.grillRequireCleared != grillRequire)
                 {
-                    continue;
+                    levelRecord.grillRequireCleared = grillRequire;
+                    needsUpdate = true;
                 }
 
-                // Update grill IDs within each level
-                for (int j = 0; j < levelRecord.grillRecords.Count; j++)
-                {
-                    if (levelRecord.grillRecords[j] == null)
-                        continue;
-                    
-                    GrillRecord grillRecord = levelRecord.grillRecords[j];
 
-                    if (grillRecord.grillId != j)
-                    {
-                        grillRecord.grillId = j;
-                        needsUpdate = true;
-                    }
-                }
-                
-                // Count food
-                int foodCnt = 0;
-                for (int j = 0; j < levelRecord.grillRecords.Count; j++)
+                int tempGrillTotal = levelRecord.grillRequireCleared + levelRecord.grillEmpty;
+                if (levelRecord.grillTotal != tempGrillTotal)
                 {
-                    if (levelRecord.grillRecords[j] == null)
-                        continue;
-                    GrillRecord grillRecord = levelRecord.grillRecords[j];
-                    
-                    if (grillRecord.foodList == null)
-                        continue;
-                    
-                    foodCnt += grillRecord.foodList.Count;
-                }
-                
-                if (levelRecord.foodAmount != foodCnt)
-                {
-                    levelRecord.foodAmount = foodCnt;
+                    levelRecord.grillTotal = tempGrillTotal;
                     needsUpdate = true;
                 }
             }
@@ -155,17 +130,20 @@ namespace NamPhuThuy.Data
     public class LevelRecord
     {
         public int levelID;
-        public int foodTypeNum; // number of different food types in this level
-        public int foodAmount;
-        public int grillNum;
-        public int grillEmpty;
-        
+        public ConceptRecord.ConceptType conceptType;
         
         public float duration;
         
+        public int foodTypeNum; // number of different food types in this level
+        public int foodAmount;
         
-        public ConceptRecord.ConceptType conceptType;
-        public List<GrillRecord> grillRecords;
+        public int grillRequireCleared;
+        public int grillEmpty;
+        public int grillTotal;
+        
+        public List<FoodMechanicRecord> foodMechanics;
+        public List<GrillMechanicRecord> grillMechanics;
+        public List<ManualFoodRecord> manualFoods;
     }
     
     [Serializable]
@@ -175,8 +153,8 @@ namespace NamPhuThuy.Data
         public BaseGrill.GrillMechanic grillMechanic;
         public FoodType lockedFoodType;
         public List<FoodType> foodList;
-        public List<FoodMechanicRecord> foodMechanics;
-        public List<GrillMechanicRecord> grillMechanics;
+        
+        
         // public List<int> foodId;
     }
 
@@ -191,7 +169,6 @@ namespace NamPhuThuy.Data
     public class GrillMechanicRecord
     {
         public BaseGrill.GrillMechanic mechanic;
-        public FoodType lockedFoodType;
         public int amount;
     }
     
@@ -199,23 +176,13 @@ namespace NamPhuThuy.Data
     [Serializable]
     public class ManualFoodRecord
     {
-        /// <summary>
-        /// grillIndex -> list of food unit IDs on that grill
-        /// Example: {0: [0,1], 1: [2]} means units 0,1 on grill 0, unit 2 on grill 1
-        /// </summary>
-        public List<int> grillIndices;
-        public List<List<int>> foodUnitsPerGrill;
-
-        public Dictionary<int, List<int>> GetGrillToFoodMapping()
-        {
-            var mapping = new Dictionary<int, List<int>>();
-            for (int i = 0; i < grillIndices.Count; i++)
-            {
-                mapping[grillIndices[i]] = foodUnitsPerGrill[i];
-            }
-
-            return mapping;
-        }
+        public List<ListIntValue> foodIdPerGrill;
+    }
+    
+    [Serializable]
+    public class ListIntValue
+    {
+        public List<int> values;
     }
     
 }

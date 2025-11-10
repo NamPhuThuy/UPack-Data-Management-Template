@@ -14,77 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allLevels:
   - levelID: 0
-    foodTypeNum: 0
-    foodAmount: 24
-    grillNum: 0
-    grillEmpty: 0
-    duration: 50
     conceptType: 1
-    grillRecords:
-    - grillId: 0
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 01000000020000000400000004000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 1
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 01000000010000000200000002000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 2
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 0300000001000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 3
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 4
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 020000000300000003000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 5
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 030000000400000004000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 6
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 0500000006000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 7
-      grillMechanic: 4
-      lockedFoodType: 3
-      foodList: 
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 8
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 050000000500000006000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 9
-      grillMechanic: 0
-      lockedFoodType: 0
-      foodList: 060000000600000005000000
-      foodMechanics: []
-      grillMechanics: []
-    - grillId: 10
-      grillMechanic: 3
-      lockedFoodType: 0
-      foodList: 
-      foodMechanics: []
-      grillMechanics: []
+    duration: 100
+    foodTypeNum: 5
+    foodAmount: 24
+    grillRequireCleared: 6
+    grillEmpty: 2
+    grillTotal: 8
+    foodMechanics:
+    - mechanic: 3
+      amount: 18
+    - mechanic: 2
+      amount: 3
+    grillMechanics:
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0200000003000000
+      - values: 0200000003000000
   coinReward: 0
