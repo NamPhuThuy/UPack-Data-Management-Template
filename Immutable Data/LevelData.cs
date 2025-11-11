@@ -136,9 +136,9 @@ namespace NamPhuThuy.Data
         
         public int foodTypeNum; // number of different food types in this level
         public int foodAmount;
-        
-        public int grillRequireCleared;
         public int grillEmpty;
+        public int grillRequireCleared;
+       
         public int grillTotal;
         
         public List<FoodMechanicRecord> foodMechanics;
