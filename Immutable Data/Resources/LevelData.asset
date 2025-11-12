@@ -56,5 +56,61 @@ MonoBehaviour:
     grillTotal: 5
     foodMechanics: []
     grillMechanics: []
-    manualFoods: []
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 0000000001000000
+      - values: 0200000003000000
+  - levelID: 4
+    conceptType: 1
+    duration: 90
+    foodTypeNum: 4
+    foodAmount: 20
+    grillEmpty: 1
+    grillRequireCleared: 5
+    grillTotal: 6
+    foodMechanics: []
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+  - levelID: 5
+    conceptType: 1
+    duration: 100
+    foodTypeNum: 5
+    foodAmount: 20
+    grillEmpty: 1
+    grillRequireCleared: 5
+    grillTotal: 6
+    foodMechanics: []
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 03000000
+      - values: 0200000003000000
+  - levelID: 6
+    conceptType: 1
+    duration: 100
+    foodTypeNum: 5
+    foodAmount: 20
+    grillEmpty: 1
+    grillRequireCleared: 5
+    grillTotal: 6
+    foodMechanics: []
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
   coinReward: 0
