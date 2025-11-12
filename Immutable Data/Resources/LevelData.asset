@@ -65,9 +65,9 @@ MonoBehaviour:
     duration: 90
     foodTypeNum: 4
     foodAmount: 20
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 5
-    grillTotal: 6
+    grillTotal: 7
     foodMechanics: []
     grillMechanics:
     - mechanic: 3

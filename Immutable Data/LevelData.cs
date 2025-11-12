@@ -58,8 +58,15 @@ namespace NamPhuThuy.Data
                     needsUpdate = true;
                 }
 
+                int grillWithMechanics = 0;
+                for (var i1 = 0; i1 < allLevels[i].grillMechanics.Count; i1++)
+                {
+                    grillWithMechanics += allLevels[i].grillMechanics[i1].amount;
+                }
 
-                int tempGrillTotal = levelRecord.grillRequireCleared + levelRecord.grillEmpty;
+                int tempGrillTotal = levelRecord.grillRequireCleared + levelRecord.grillEmpty + grillWithMechanics;
+                
+                
                 if (levelRecord.grillTotal != tempGrillTotal)
                 {
                     levelRecord.grillTotal = tempGrillTotal;
