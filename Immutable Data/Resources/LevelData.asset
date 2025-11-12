@@ -65,7 +65,7 @@ MonoBehaviour:
     duration: 90
     foodTypeNum: 4
     foodAmount: 20
-    grillEmpty: 2
+    grillEmpty: 1
     grillRequireCleared: 5
     grillTotal: 7
     foodMechanics: []
@@ -84,7 +84,7 @@ MonoBehaviour:
     foodAmount: 20
     grillEmpty: 1
     grillRequireCleared: 5
-    grillTotal: 6
+    grillTotal: 7
     foodMechanics: []
     grillMechanics:
     - mechanic: 3
@@ -101,7 +101,7 @@ MonoBehaviour:
     foodAmount: 20
     grillEmpty: 1
     grillRequireCleared: 5
-    grillTotal: 6
+    grillTotal: 8
     foodMechanics: []
     grillMechanics:
     - mechanic: 3
@@ -112,5 +112,176 @@ MonoBehaviour:
     - foodIdPerGrill:
       - values: 00000000
       - values: 01000000
+      - values: 0200000003000000
+  - levelID: 7
+    conceptType: 1
+    duration: 100
+    foodTypeNum: 5
+    foodAmount: 24
+    grillEmpty: 2
+    grillRequireCleared: 6
+    grillTotal: 10
+    foodMechanics: []
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+  - levelID: 8
+    conceptType: 1
+    duration: 100
+    foodTypeNum: 5
+    foodAmount: 24
+    grillEmpty: 2
+    grillRequireCleared: 6
+    grillTotal: 10
+    foodMechanics: []
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 04000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000003000000
+      - values: 0200000003000000
+  - levelID: 9
+    conceptType: 1
+    duration: 100
+    foodTypeNum: 6
+    foodAmount: 24
+    grillEmpty: 1
+    grillRequireCleared: 6
+    grillTotal: 9
+    foodMechanics:
+    - mechanic: 3
+      amount: 4
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000002000000
+      - values: 0200000003000000
+  - levelID: 10
+    conceptType: 1
+    duration: 110
+    foodTypeNum: 6
+    foodAmount: 28
+    grillEmpty: 1
+    grillRequireCleared: 7
+    grillTotal: 10
+    foodMechanics:
+    - mechanic: 3
+      amount: 5
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000002000000
+      - values: 0200000003000000
+  - levelID: 11
+    conceptType: 1
+    duration: 110
+    foodTypeNum: 6
+    foodAmount: 28
+    grillEmpty: 1
+    grillRequireCleared: 7
+    grillTotal: 10
+    foodMechanics:
+    - mechanic: 3
+      amount: 5
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0200000003000000
+      - values: 0200000003000000
+  - levelID: 12
+    conceptType: 1
+    duration: 110
+    foodTypeNum: 7
+    foodAmount: 28
+    grillEmpty: 1
+    grillRequireCleared: 7
+    grillTotal: 10
+    foodMechanics:
+    - mechanic: 3
+      amount: 6
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 1
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 02000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000003000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000002000000
+      - values: 0200000003000000
+  - levelID: 13
+    conceptType: 1
+    duration: 110
+    foodTypeNum: 7
+    foodAmount: 28
+    grillEmpty: 1
+    grillRequireCleared: 7
+    grillTotal: 11
+    foodMechanics:
+    - mechanic: 3
+      amount: 6
+    grillMechanics:
+    - mechanic: 3
+      amount: 1
+    - mechanic: 4
+      amount: 2
+    manualFoods:
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0200000003000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 00000000
+      - values: 01000000
+      - values: 0200000003000000
+    - foodIdPerGrill:
+      - values: 0000000002000000
       - values: 0200000003000000
   coinReward: 0
