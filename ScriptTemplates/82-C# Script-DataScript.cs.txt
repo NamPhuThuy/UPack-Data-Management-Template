@@ -96,6 +96,7 @@ namespace NamPhuThuy.Data
     [System.Serializable]
     public class #SCRIPTNAME#Record
     {
+        [HelpBox("auto-assigned id", HelpBoxMessageType.Info)]
         public int recordId;
     }
 }
