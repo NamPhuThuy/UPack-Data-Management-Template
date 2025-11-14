@@ -11,7 +11,7 @@ namespace NamPhuThuy.Data
     [CreateAssetMenu(fileName = "#SCRIPTNAME#", menuName = "Game/#SCRIPTNAME#", order = 1)]
     public class #SCRIPTNAME#Data : ScriptableObject
     {
-        [SerializeField] private List<#SCRIPTNAME#Record> data = new List<#SCRIPTNAME#Record>();
+        public List<#SCRIPTNAME#Record> data = new List<#SCRIPTNAME#Record>();
 
         private Dictionary<int, #SCRIPTNAME#Record> _dictData;
         
