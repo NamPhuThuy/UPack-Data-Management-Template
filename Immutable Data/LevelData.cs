@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using NamPhuThuy.Common;
 using NamPhuThuy.GamePlay;
+using UnityEditor;
 using UnityEngine;
 
 namespace NamPhuThuy.Data
@@ -131,6 +133,104 @@ namespace NamPhuThuy.Data
         }
 
         #endregion
+
+        #region Public Methods
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Import `allLevels` from a JSON file that contains an array of LevelRecord.
+        /// </summary>
+        public void ImportFromJson(string jsonText)
+        {
+            if (string.IsNullOrEmpty(jsonText))
+            {
+                DebugLogger.LogError(message: "JSON text is null or empty", context: this);
+                return;
+            }
+
+            try
+            {
+                var wrapper = new LevelRecordArrayWrapper();
+                wrapper.items = JsonUtility.FromJson<LevelRecordArrayWrapper>(
+                    "{\"items\":" + jsonText + "}"
+                ).items;
+
+                allLevels = wrapper.items;
+                _dictLevelData = null;
+
+                UnityEditor.EditorUtility.SetDirty(this);
+                DebugLogger.Log(message: $"Imported {allLevels?.Length ?? 0} levels from JSON", context: this);
+            }
+            catch (Exception e)
+            {
+                DebugLogger.LogError(message: $"Failed to import LevelData from JSON: {e}", context: this);
+            }
+        }
+
+        [Serializable]
+        private class LevelRecordArrayWrapper
+        {
+            public LevelRecord[] items;
+        }
+#endif
+
+        #endregion
+    }
+    
+    [CustomEditor(typeof(LevelData))]
+    public class LevelDataEditor : Editor
+    {
+        // Adjust this to your actual JSON path if needed
+        private const string DefaultJsonPath = "Assets/_Project/UPack-Data-Management-Template/Immutable Data/LevelData.json";
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("JSON Import", EditorStyles.boldLabel);
+
+            if (GUILayout.Button("Import From JSON"))
+            {
+                var levelData = (LevelData)target;
+
+                string path = DefaultJsonPath;
+
+                // Optionally let user pick a file
+                if (Event.current.shift) // hold Shift to choose file
+                {
+                    string picked = EditorUtility.OpenFilePanel("Select LevelData JSON", Application.dataPath, "json");
+                    if (!string.IsNullOrEmpty(picked))
+                    {
+                        path = picked;
+                    }
+                }
+
+                string jsonText;
+                try
+                {
+                    if (!Path.IsPathRooted(path))
+                    {
+                        // make relative to project
+                        jsonText = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), path));
+                    }
+                    else
+                    {
+                        jsonText = File.ReadAllText(path);
+                    }
+                }
+                catch (IOException e)
+                {
+                    Debug.LogError($"Failed to read JSON file at {path}: {e}");
+                    return;
+                }
+
+                levelData.ImportFromJson(jsonText);
+                EditorUtility.SetDirty(levelData);
+            }
+
+            EditorGUILayout.HelpBox("Click `Import From JSON` to load level list from `LevelData.json`.\nHold Shift while clicking to choose a custom JSON file.", MessageType.Info);
+        }
     }
 
     [Serializable]
