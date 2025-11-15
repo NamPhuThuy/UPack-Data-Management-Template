@@ -149,10 +149,7 @@ MonoBehaviour:
     manualFoods:
     - foodIdPerGrill:
       - values: 00000000
-      - values: 04000000
-      - values: 0200000003000000
-    - foodIdPerGrill:
-      - values: 0000000003000000
+      - values: 03000000
       - values: 0200000003000000
   - levelID: 9
     conceptType: 1
