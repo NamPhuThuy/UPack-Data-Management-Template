@@ -29,9 +29,9 @@ MonoBehaviour:
     duration: 90
     foodTypeNum: 3
     foodAmount: 12
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 3
-    grillTotal: 4
+    grillTotal: 5
     foodMechanics: []
     grillMechanics: []
     manualFoods: []
@@ -40,9 +40,9 @@ MonoBehaviour:
     duration: 90
     foodTypeNum: 4
     foodAmount: 16
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 4
-    grillTotal: 5
+    grillTotal: 6
     foodMechanics: []
     grillMechanics: []
     manualFoods: []
@@ -51,9 +51,9 @@ MonoBehaviour:
     duration: 90
     foodTypeNum: 4
     foodAmount: 16
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 4
-    grillTotal: 5
+    grillTotal: 6
     foodMechanics: []
     grillMechanics: []
     manualFoods:
@@ -82,9 +82,9 @@ MonoBehaviour:
     duration: 100
     foodTypeNum: 5
     foodAmount: 20
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 5
-    grillTotal: 7
+    grillTotal: 8
     foodMechanics: []
     grillMechanics:
     - mechanic: 3
@@ -99,9 +99,9 @@ MonoBehaviour:
     duration: 100
     foodTypeNum: 5
     foodAmount: 20
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 5
-    grillTotal: 8
+    grillTotal: 9
     foodMechanics: []
     grillMechanics:
     - mechanic: 3
@@ -156,9 +156,9 @@ MonoBehaviour:
     duration: 100
     foodTypeNum: 6
     foodAmount: 24
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 6
-    grillTotal: 9
+    grillTotal: 10
     foodMechanics:
     - mechanic: 3
       amount: 4
@@ -180,9 +180,9 @@ MonoBehaviour:
     duration: 110
     foodTypeNum: 6
     foodAmount: 28
-    grillEmpty: 1
+    grillEmpty: 2
     grillRequireCleared: 7
-    grillTotal: 10
+    grillTotal: 11
     foodMechanics:
     - mechanic: 3
       amount: 5
