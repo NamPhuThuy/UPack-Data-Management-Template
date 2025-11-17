@@ -13,8 +13,8 @@ namespace NamPhuThuy.Data
     {
         public LevelRecord[] allLevels;
         public int coinReward;
-        
-        
+
+
         private Dictionary<int, LevelRecord> _dictLevelData;
 
         public Dictionary<int, LevelRecord> DictLevelData
@@ -25,6 +25,7 @@ namespace NamPhuThuy.Data
                 {
                     EnsureDict();
                 }
+
                 return _dictLevelData;
             }
         }
@@ -41,7 +42,6 @@ namespace NamPhuThuy.Data
 
             for (int i = 0; i < allLevels.Length; i++)
             {
-                
                 LevelRecord levelRecord = allLevels[i];
                 if (levelRecord == null)
                     continue;
@@ -67,8 +67,8 @@ namespace NamPhuThuy.Data
                 }
 
                 int tempGrillTotal = levelRecord.grillRequireCleared + levelRecord.grillEmpty + grillWithMechanics;
-                
-                
+
+
                 if (levelRecord.grillTotal != tempGrillTotal)
                 {
                     levelRecord.grillTotal = tempGrillTotal;
@@ -79,7 +79,7 @@ namespace NamPhuThuy.Data
             if (needsUpdate)
             {
                 UnityEditor.EditorUtility.SetDirty(this);
-                DebugLogger.Log(message:"Level and Grill IDs updated", context:this);
+                DebugLogger.Log(message: "Level and Grill IDs updated", context: this);
             }
 
             _dictLevelData = null;
@@ -114,7 +114,7 @@ namespace NamPhuThuy.Data
                 _dictLevelData[level.levelID] = level;
             }
         }
-        
+
         public LevelRecord GetLevelData(int levelId)
         {
             // DebugLogger.Log(message:$"Get level data: {levelId}", context:this);
@@ -176,12 +176,14 @@ namespace NamPhuThuy.Data
 
         #endregion
     }
-    
+
+#if UNITY_EDITOR
     [CustomEditor(typeof(LevelData))]
     public class LevelDataEditor : Editor
     {
         // Adjust this to your actual JSON path if needed
-        private const string DefaultJsonPath = "Assets/_Project/UPack-Data-Management-Template/Immutable Data/LevelData.json";
+        private const string DefaultJsonPath =
+            "Assets/_Project/UPack-Data-Management-Template/Immutable Data/LevelData.json";
 
         public override void OnInspectorGUI()
         {
@@ -229,30 +231,33 @@ namespace NamPhuThuy.Data
                 EditorUtility.SetDirty(levelData);
             }
 
-            EditorGUILayout.HelpBox("Click `Import From JSON` to load level list from `LevelData.json`.\nHold Shift while clicking to choose a custom JSON file.", MessageType.Info);
+            EditorGUILayout.HelpBox(
+                "Click `Import From JSON` to load level list from `LevelData.json`.\nHold Shift while clicking to choose a custom JSON file.",
+                MessageType.Info);
         }
     }
+#endif
 
     [Serializable]
     public class LevelRecord
     {
         public int levelID;
         public ConceptRecord.ConceptType conceptType;
-        
+
         public float duration;
-        
+
         public int foodTypeNum; // number of different food types in this level
         public int foodAmount;
         public int grillEmpty;
         public int grillRequireCleared;
-       
+
         public int grillTotal;
-        
+
         public List<FoodMechanicRecord> foodMechanics;
         public List<GrillMechanicRecord> grillMechanics;
         public List<ManualFoodRecord> manualFoods;
     }
-    
+
     [Serializable]
     public class GrillRecord
     {
@@ -260,8 +265,8 @@ namespace NamPhuThuy.Data
         public BaseGrill.GrillMechanic grillMechanic;
         public FoodType lockedFoodType;
         public List<FoodType> foodList;
-        
-        
+
+
         // public List<int> foodId;
     }
 
@@ -271,25 +276,24 @@ namespace NamPhuThuy.Data
         public FoodMechanic mechanic;
         public int amount;
     }
-    
+
     [Serializable]
     public class GrillMechanicRecord
     {
         public BaseGrill.GrillMechanic mechanic;
         public int amount;
     }
-    
+
 
     [Serializable]
     public class ManualFoodRecord
     {
         public List<ListIntValue> foodIdPerGrill;
     }
-    
+
     [Serializable]
     public class ListIntValue
     {
         public List<int> values;
     }
-    
 }

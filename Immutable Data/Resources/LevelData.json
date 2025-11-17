@@ -1,0 +1,44 @@
+[
+  {
+    "levelID": 0,
+    "conceptType": 0,
+    "duration": 60.0,
+    "foodTypeNum": 3,
+    "foodAmount": 24,
+    "grillEmpty": 2,
+    "grillRequireCleared": 4,
+    "grillTotal": 8,
+    "foodMechanics": 
+    [
+      { "mechanic": 0, "amount": 2 },
+      { "mechanic": 1, "amount": 1 }
+    ],
+    "grillMechanics": 
+    [
+      { "mechanic": 0, "amount": 1 }
+    ],
+    "manualFoods": 
+    [
+      {
+        "foodIdPerGrill": 
+        [
+          { "values": [0, 1, 2, 3] },
+          { "values": [4, 5, 6, 7] }
+        ]
+      }
+    ]
+  },
+  {
+    "levelID": 1,
+    "conceptType": 1,
+    "duration": 45.0,
+    "foodTypeNum": 2,
+    "foodAmount": 16,
+    "grillEmpty": 1,
+    "grillRequireCleared": 3,
+    "grillTotal": 6,
+    "foodMechanics": [],
+    "grillMechanics": [],
+    "manualFoods": []
+  }
+]
