@@ -18,7 +18,7 @@ namespace NamPhuThuy.Data
             {
                 currentLevelId = value;
                 currentLevelId = Math.Max(0, value);
-                DataManagerChecked.Ins.MarkDirty();
+                DataManager.Ins.MarkDirty();
             }
             
         }
@@ -32,7 +32,7 @@ namespace NamPhuThuy.Data
                 coin = value;
                 coin = Math.Max(0, value);
 
-                DataManagerChecked.Ins.MarkDirty();
+                DataManager.Ins.MarkDirty();
                 // MMEventManager.TriggerEvent(new EResourceUpdated(ResourceType.COIN));
             }
         }
@@ -46,7 +46,7 @@ namespace NamPhuThuy.Data
                 health = value;
                 health = Math.Max(0, value);
 
-                DataManagerChecked.Ins.MarkDirty();
+                DataManager.Ins.MarkDirty();
                 // MMEventManager.TriggerEvent(new EResourceUpdated(ResourceType.HEALTH));
             }
         }
@@ -98,7 +98,7 @@ namespace NamPhuThuy.Data
                 if (grantedLevelRewardIds == null) grantedLevelRewardIds = new List<int>();
                 grantedLevelRewardIds.Add(levelId);
 
-                DataManagerChecked.Ins.MarkDirty();
+                DataManager.Ins.MarkDirty();
             }
         }
 
@@ -116,7 +116,7 @@ namespace NamPhuThuy.Data
             set
             {
                 lastFreeFortuneSpinTs = value;
-                DataManagerChecked.Ins.MarkDirty();
+                DataManager.Ins.MarkDirty();
             }
         }
         
@@ -184,7 +184,7 @@ namespace NamPhuThuy.Data
                 boosters.Add(new PlayerBoosterData { boosterType = type, amount = Math.Max(0, amount) });
             }
 
-            DataManagerChecked.Ins.MarkDirty();
+            DataManager.Ins.MarkDirty();
             MMEventManager.TriggerEvent(new EResourceUpdated()
             {
                 ResourceType = ResourceType.BOOSTER
@@ -199,7 +199,7 @@ namespace NamPhuThuy.Data
             else
                 boosters.Add(new PlayerBoosterData { boosterType = type, amount = count });
 
-            DataManagerChecked.Ins.MarkDirty();
+            DataManager.Ins.MarkDirty();
         }
 
         public void ClearBoosters()
@@ -259,12 +259,12 @@ namespace NamPhuThuy.Data
 
                     case ResourceType.NO_ADS:
 
-                        DataManagerChecked.Ins.PlayerData.ActiveNoAds();
+                        DataManager.Ins.PlayerData.ActiveNoAds();
                         break;
                 }
             }
 
-            if (anyGranted) DataManagerChecked.Ins.MarkDirty();
+            if (anyGranted) DataManager.Ins.MarkDirty();
             if (anyGranted)
             {
                 Debug.Log($"PlayerData.TryApplyRewards() - rewards are applied");

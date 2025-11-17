@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7550815718469515929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3697546784348136267}
+  - component: {fileID: 1876964190933826134}
+  m_Layer: 0
+  m_Name: DataManager - checked
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3697546784348136267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7550815718469515929}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 448.94333, y: 606.7013, z: -6.25358}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1436861473026342136}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876964190933826134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7550815718469515929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14862124ddedc445972a184b0e2954a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelDataLoader: {fileID: 226066221087009291}
+  cachedPlayerData:
+    currentLevelId: 0
+    coin: 0
+    health: 0
+    isRemoveAds: 0
+    boosters: []
+    grantedLevelRewardIds: 
+    lastFreeFortuneSpinTs: 0
+  cachedPlayerSettingsData:
+    musicVolume: 0
+    sfxVolume: 0
+    musicEnabled: 0
+    sfxEnabled: 0
+    vibrationEnabled: 0
+    notifyEnabled: 0
+  isUseRemoteConfig: 1
+  levelData: {fileID: 11400000, guid: 06de3165dd342974f9effa3fefa1b3bb, type: 2}
+  boosterData: {fileID: 11400000, guid: daa0c1834c1c9344a985a099d7a9940c, type: 2}
+  iapData: {fileID: 11400000, guid: 804748045dba7bb4195098c4b49145c4, type: 2}
+  resourceData: {fileID: 11400000, guid: 71c2cedce318abd43ac2a8f21d14c10b, type: 2}
+  foodData: {fileID: 11400000, guid: 1c3b39417340b7a4b85a38633f56c55b, type: 2}
+  conceptData: {fileID: 11400000, guid: 9c98df0161479b4458e1f1c9b6fedf6c, type: 2}
+  eventRewardData: {fileID: 0}
+--- !u!1 &9200000017301800076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436861473026342136}
+  - component: {fileID: 226066221087009291}
+  m_Layer: 0
+  m_Name: LevelData Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436861473026342136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200000017301800076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3697546784348136267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226066221087009291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200000017301800076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6d0a781084dc341b219b33f2e16b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultLevelData: {fileID: 11400000, guid: 06de3165dd342974f9effa3fefa1b3bb, type: 2}
+  jsonFileOverride: {fileID: 4900000, guid: 78878d22bda1248479c85b5b663d1135, type: 3}

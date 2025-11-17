@@ -36,7 +36,7 @@ namespace NamPhuThuy.Data
             }
         }
         
-        protected void Awake()
+        protected virtual void Awake()
         {
             if (!_instance)
             {

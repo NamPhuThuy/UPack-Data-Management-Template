@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 
@@ -7,15 +7,27 @@ namespace NamPhuThuy.Data
     
     public partial class DataManager
     {
-        [Header("Mutable Datas")]
-        #region Mutable Data References
+        #region Components
+
+        [Header("Components")]
+        [SerializeField] private LevelDataLoader levelDataLoader;
+        
+
+        #endregion
+        
+        #region Mutable Datas
+
+        [Header("Mutable Datas")] 
+        private string _playerDataPath;
+        private string _settingsDataPath;
+        private string _galleryDataPath;
 
         private bool _isPlayerDataLoaded;
         private bool _isSettingsDataLoaded;
-        
+
         [SerializeField] private PlayerData cachedPlayerData;
 
-        public PlayerData PlayerData
+        public PlayerData PlayerData // Lazy loading - only load when needed
         {
             get
             {
@@ -45,12 +57,15 @@ namespace NamPhuThuy.Data
                 return cachedPlayerSettingsData;
             }
         }
-        
+
         #endregion
+        
+        #region Immutable Datas
 
-        #region Immutable Data References
 
-        [Header("Immutable Datas")]
+        [Header("Immutable Datas")] 
+        [Header("Level Data")] 
+        [SerializeField] private bool isUseRemoteConfig;
         [SerializeField] private LevelData levelData;
 
         public LevelData LevelData
@@ -111,22 +126,6 @@ namespace NamPhuThuy.Data
             }
         }
 
-        
-        [SerializeField] private ConceptData conceptData;
-
-        public ConceptData ConceptData
-        {
-            get
-            {
-                if (conceptData == null)
-                {
-                    conceptData = Resources.Load<ConceptData>("ConceptData");
-                }
-
-                return conceptData;
-            }
-        }
-        
         [SerializeField] private FoodData foodData;
 
         public FoodData FoodData
@@ -141,7 +140,38 @@ namespace NamPhuThuy.Data
                 return foodData;
             }
         }
+
+        [SerializeField] private ConceptData conceptData;
+
+        public ConceptData ConceptData
+        {
+            get
+            {
+                if (conceptData == null)
+                {
+                    conceptData = Resources.Load<ConceptData>("ConceptData");
+                }
+
+                return conceptData;
+            }
+        }
+
+        [SerializeField] private EventRewardData eventRewardData;
+
+        public EventRewardData EventRewardData
+        {
+            get
+            {
+                if (eventRewardData == null)
+                {
+                    eventRewardData = Resources.Load<EventRewardData>("EventRewardData");
+                }
+
+                return eventRewardData;
+            }
+        }
+
         #endregion
 
     }
-}*/
+}
