@@ -63,6 +63,7 @@ namespace NamPhuThuy.Data
                 int grillWithMechanics = 0;
                 for (var i1 = 0; i1 < allLevels[i].grillMechanics.Count; i1++)
                 {
+                    if (allLevels[i].grillMechanics[i1].mechanic == BaseGrill.GrillMechanic.FOOD_LOCKED) continue;
                     grillWithMechanics += allLevels[i].grillMechanics[i1].amount;
                 }
 
@@ -135,6 +136,27 @@ namespace NamPhuThuy.Data
         #endregion
 
         #region Public Methods
+        
+        // Call this at runtime with JSON text from Resources/StreamingAssets/RemoteConfig, etc.
+        /*public void ImportFromJsonRuntime(string jsonText)
+        {
+            if (string.IsNullOrEmpty(jsonText))
+                return;
+
+            try
+            {
+                var wrapper = JsonUtility.FromJson<LevelRecordArrayWrapper>(
+                    "{\"items\":" + jsonText + "}"
+                );
+
+                allLevels = wrapper.items;
+                _dictLevelData = null;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to import LevelData from JSON at runtime: {e}");
+            }
+        }*/
 
 #if UNITY_EDITOR
         /// <summary>
@@ -249,8 +271,11 @@ namespace NamPhuThuy.Data
         public int foodTypeNum; // number of different food types in this level
         public int foodAmount;
         public int grillEmpty;
+        
+        [Tooltip("Food amount / 4")]
         public int grillRequireCleared;
 
+        [Tooltip("grillRequireCleared + grillEmpty + grills with mechanics-not locked food")]
         public int grillTotal;
 
         public List<FoodMechanicRecord> foodMechanics;

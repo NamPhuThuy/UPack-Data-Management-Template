@@ -60,10 +60,10 @@ JSON for:
 
             yield return StartCoroutine(LoadData());
 
-            if (isUseRemoteConfig)
+            /*if (isUseRemoteConfig)
             {
                 yield return StartCoroutine(levelDataLoader.LoadDataFromJson());
-            }
+            }*/
         }
 
         private void OnEnable()

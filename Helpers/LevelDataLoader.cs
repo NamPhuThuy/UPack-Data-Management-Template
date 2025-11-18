@@ -132,7 +132,7 @@ namespace NamPhuThuy.Data
 
         #region Load Data
 
-        public IEnumerator LoadDataFromJson()
+        /*public IEnumerator LoadDataFromJson()
         {
             if (defaultLevelData == null)
             {
@@ -144,7 +144,7 @@ namespace NamPhuThuy.Data
             if (jsonFileOverride != null)
             {
                 _runtimeLevelData = ScriptableObject.CreateInstance<LevelData>();
-                _runtimeLevelData.ImportFromJson(jsonFileOverride.text);
+                _runtimeLevelData.ImportFromJsonRuntime(jsonFileOverride.text);
                 Debug.Log(
                     $"Loaded level data from override JSON file. Total levels: {_runtimeLevelData.GetTotalLevels()}");
             }
@@ -152,7 +152,7 @@ namespace NamPhuThuy.Data
             yield return null;
 
             OnLoadLevelDataCompleted?.Invoke(_runtimeLevelData);
-        }
+        }*/
 
         public void LoadDataFromRemoteConfig(string jsonText)
         {
@@ -173,7 +173,7 @@ namespace NamPhuThuy.Data
                 _runtimeLevelData = ScriptableObject.CreateInstance<LevelData>();
             }
 
-            _runtimeLevelData.ImportFromJson(jsonText);
+            // _runtimeLevelData.ImportFromJsonRuntime(jsonText);
             Debug.Log(
                 $"Successfully loaded level data from remote config. Total levels: {_runtimeLevelData.GetTotalLevels()}");
 
