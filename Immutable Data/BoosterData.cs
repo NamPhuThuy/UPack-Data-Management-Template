@@ -19,6 +19,7 @@ namespace NamPhuThuy.Data
         public List<ResourceAmount> price;
         
         public string boosterName;
+        public string offerDescription;
         public Sprite gameplayImage;
         public Sprite inventoryImage;
     }
