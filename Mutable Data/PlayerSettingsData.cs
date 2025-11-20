@@ -4,7 +4,7 @@ namespace NamPhuThuy.Data
 {
     
     [Serializable]
-    public class PlayerSettingsData
+    public partial class PlayerSettingsData
     {
         public float musicVolume;
         public float sfxVolume;

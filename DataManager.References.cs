@@ -11,7 +11,6 @@ namespace NamPhuThuy.Data
 
         [Header("Components")]
         [SerializeField] private LevelDataLoader levelDataLoader;
-        
 
         #endregion
         
@@ -20,7 +19,6 @@ namespace NamPhuThuy.Data
         [Header("Mutable Datas")] 
         private string _playerDataPath;
         private string _settingsDataPath;
-        private string _galleryDataPath;
 
         private bool _isPlayerDataLoaded;
         private bool _isSettingsDataLoaded;
@@ -66,35 +64,8 @@ namespace NamPhuThuy.Data
         [Header("Immutable Datas")] 
         [Header("Level Data")] 
         [SerializeField] private bool isUseRemoteConfig;
-        [SerializeField] private LevelData levelData;
-
-        public LevelData LevelData
-        {
-            get
-            {
-                if (levelData == null)
-                {
-                    levelData = Resources.Load<LevelData>("LevelData");
-                }
-
-                return levelData;
-            }
-        }
-
-        [SerializeField] private BoosterData boosterData;
-
-        public BoosterData BoosterData
-        {
-            get
-            {
-                if (boosterData == null)
-                {
-                    boosterData = Resources.Load<BoosterData>("BoosterData");
-                }
-
-                return boosterData;
-            }
-        }
+      
+      
 
         [SerializeField] private IAPData iapData;
 
@@ -126,50 +97,7 @@ namespace NamPhuThuy.Data
             }
         }
 
-        [SerializeField] private FoodData foodData;
-
-        public FoodData FoodData
-        {
-            get
-            {
-                if (foodData == null)
-                {
-                    foodData = Resources.Load<FoodData>("FoodData");
-                }
-
-                return foodData;
-            }
-        }
-
-        [SerializeField] private ConceptData conceptData;
-
-        public ConceptData ConceptData
-        {
-            get
-            {
-                if (conceptData == null)
-                {
-                    conceptData = Resources.Load<ConceptData>("ConceptData");
-                }
-
-                return conceptData;
-            }
-        }
-
-        [SerializeField] private EventRewardData eventRewardData;
-
-        public EventRewardData EventRewardData
-        {
-            get
-            {
-                if (eventRewardData == null)
-                {
-                    eventRewardData = Resources.Load<EventRewardData>("EventRewardData");
-                }
-
-                return eventRewardData;
-            }
-        }
+      
 
         #endregion
 

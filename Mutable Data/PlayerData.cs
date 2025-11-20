@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using MoreMountains.Tools;
-using NamPhuThuy.Common;
 using UnityEngine;
 
 namespace NamPhuThuy.Data
 {
 
     [Serializable]
-    public class PlayerData
+    public partial class PlayerData
     {
         [SerializeField] private int currentLevelId;
         public int CurrentLevelId
@@ -33,7 +32,6 @@ namespace NamPhuThuy.Data
                 coin = Math.Max(0, value);
 
                 DataManager.Ins.MarkDirty();
-                // MMEventManager.TriggerEvent(new EResourceUpdated(ResourceType.COIN));
             }
         }
 
@@ -47,7 +45,6 @@ namespace NamPhuThuy.Data
                 health = Math.Max(0, value);
 
                 DataManager.Ins.MarkDirty();
-                // MMEventManager.TriggerEvent(new EResourceUpdated(ResourceType.HEALTH));
             }
         }
 
@@ -69,75 +66,6 @@ namespace NamPhuThuy.Data
             this.Coin = 0;
             this.isRemoveAds = false;
         }*/
-
-        #region Tutorial Rewards Tracking
-        
-        public List<int> grantedLevelRewardIds = new List<int>();
-        [NonSerialized] private HashSet<int> _grantedLevelRewardSet;
-
-        private void EnsureGrantedSet()
-        {
-            if (_grantedLevelRewardSet != null) return;
-            _grantedLevelRewardSet = new HashSet<int>(grantedLevelRewardIds ?? new List<int>());
-        }
-
-        /// <summary>Has this level's one-time rewards already been granted?</summary>
-        public bool HasGrantedLevelRewards(int levelId)
-        {
-            EnsureGrantedSet();
-            return _grantedLevelRewardSet.Contains(levelId);
-        }
-
-        /// <summary>Mark a level's one-time rewards as granted (idempotent).</summary>
-        public void MarkLevelRewardsGranted(int levelId)
-        {
-            EnsureGrantedSet();
-            if (_grantedLevelRewardSet.Add(levelId))
-            {
-                // keep serialized list in sync
-                if (grantedLevelRewardIds == null) grantedLevelRewardIds = new List<int>();
-                grantedLevelRewardIds.Add(levelId);
-
-                DataManager.Ins.MarkDirty();
-            }
-        }
-
-        #endregion
-
-        #region Fortune Wheel
-
-        public long lastFreeFortuneSpinTs;
-
-        
-
-        public long LastFreeFortuneSpinTs
-        {
-            get => lastFreeFortuneSpinTs;
-            set
-            {
-                lastFreeFortuneSpinTs = value;
-                DataManager.Ins.MarkDirty();
-            }
-        }
-        
-        public bool CanSpinFortuneFree()
-        {
-            return (RemainTimeToNextFree() <= 0);
-        }
-        
-        public void MarkFortuneFreeSpun()
-        {
-            LastFreeFortuneSpinTs = (long)TimeHelper.ConvertToUnixTime(DateTime.UtcNow);
-        }
-        
-        public double RemainTimeToNextFree()
-        {
-            double now = TimeHelper.ConvertToUnixTime(DateTime.UtcNow);
-            double nextAllowed = lastFreeFortuneSpinTs + DataConst.SECONDS_PER_DAY;
-            return (float)Math.Max(0, nextAllowed - now);
-        }
-
-        #endregion
 
         #region Player Resources Helpers
 

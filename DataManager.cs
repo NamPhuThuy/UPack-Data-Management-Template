@@ -56,7 +56,6 @@ JSON for:
             // Debug.Log($"path: {Application.persistentDataPath}");
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
             _settingsDataPath = $"{Application.persistentDataPath}/settings.{DataConst.DATA_FILES_EXTENSION}";
-            _galleryDataPath = $"{Application.persistentDataPath}/gallery.{DataConst.DATA_FILES_EXTENSION}";
 
             yield return StartCoroutine(LoadData());
 
