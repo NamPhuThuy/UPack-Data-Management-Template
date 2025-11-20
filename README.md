@@ -1,6 +1,6 @@
 # Instruction
 
-The package shoule be place like this:
+The package shoule be placed like this:
 <pre>
 _Project/
 ├── Data Module/
