@@ -164,7 +164,11 @@ JSON for:
 
         public void ResetPlayerData()
         {
-            cachedPlayerData = new PlayerData();
+            DebugLogger.Log();
+            cachedPlayerData = new PlayerData()
+            {
+                health = GamePlayConst.HEALT_CAPACITY
+            };
             SavePlayerData();
         }
 

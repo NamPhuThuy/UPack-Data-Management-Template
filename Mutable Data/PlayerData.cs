@@ -32,6 +32,7 @@ namespace NamPhuThuy.Data
                 coin = Math.Max(0, value);
 
                 DataManager.Ins.MarkDirty();
+                MMEventManager.TriggerEvent(new EResourceUpdated());
             }
         }
 
@@ -45,6 +46,7 @@ namespace NamPhuThuy.Data
                 health = Math.Max(0, value);
 
                 DataManager.Ins.MarkDirty();
+                MMEventManager.TriggerEvent(new EResourceUpdated());
             }
         }
 
