@@ -39,21 +39,23 @@ JSON for:
 
         protected override void Awake()
         {
+            DebugLogger.Log();
             base.Awake();
             levelDataLoader.OnLoadLevelDataCompleted += OnLevelDataLoaded;
         }
 
         public override void OnDestroy()
         {
+            DebugLogger.Log();
             base.OnDestroy();
             levelDataLoader.OnLoadLevelDataCompleted -= OnLevelDataLoaded;
         }
 
         private IEnumerator Start()
         {
+            DebugLogger.Log();
             yield return null;
             
-            // Debug.Log($"path: {Application.persistentDataPath}");
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
             _settingsDataPath = $"{Application.persistentDataPath}/settings.{DataConst.DATA_FILES_EXTENSION}";
 
@@ -91,14 +93,16 @@ JSON for:
 
         public void SavePlayerData()
         {
+            DebugLogger.Log();
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
 
             //example: origin = "{"name":"NamTrinh","level":12,"currentExpPoint":31.0}"
             string origin = JsonUtility.ToJson(cachedPlayerData);
-            string encrypted = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
+            
+            // Got problem when save/load with encrypt
+            // origin = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
 
-
-            File.WriteAllText(_playerDataPath, encrypted);
+            File.WriteAllText(_playerDataPath, origin);
         }
 
         public void SaveSettingsData()
@@ -111,6 +115,7 @@ JSON for:
 
         private IEnumerator LoadPlayerData()
         {
+            DebugLogger.Log();
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
             if (File.Exists(_playerDataPath))
             {
@@ -124,8 +129,11 @@ JSON for:
                     string data = File.ReadAllText(_playerDataPath);
 
                     //Large string operations can be memory and CPU intensive
-                    string decrypted = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
-                    cachedPlayerData = JsonUtility.FromJson<PlayerData>(decrypted);
+                    
+                    // Got problem when save/load with encrypt
+                    // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
+                    cachedPlayerData = JsonUtility.FromJson<PlayerData>(data);
+                    DebugLogger.Log(message:$"Load data success");
                 }
                 catch (Exception e)
                 {
@@ -218,7 +226,7 @@ JSON for:
 
         public IEnumerator LoadData()
         {
-            // Debug.Log($"DataManager.LoadData()");
+            DebugLogger.Log();
             yield return StartCoroutine(LoadPlayerData());
             yield return StartCoroutine(LoadSettingsData());
         }

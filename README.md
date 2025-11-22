@@ -7,3 +7,6 @@ _Project/
 │   ├── Extend/
 │   └── UPack-Data-Management-Template/
 </pre>
+
+
+Should be install with the package: https://github.com/NamPhuThuy/UPack-Common
