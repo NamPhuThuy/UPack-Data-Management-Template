@@ -80,8 +80,13 @@ namespace NamPhuThuy.Data
         {
             if (amount <= 0) return true;
             if (coin < amount) return false;
-            Coin = coin - amount;
+            SpendCoins(amount);
             return true;
+        }
+        
+        public void SpendCoins(int amount)
+        {
+            Coin = coin - amount;
         }
 
         public void ClearAllCoins()
