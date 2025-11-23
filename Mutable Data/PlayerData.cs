@@ -70,6 +70,31 @@ namespace NamPhuThuy.Data
         }*/
 
         #region Player Resources Helpers
+        
+        public bool TrySpendResource(ResourceType resourceType, int amount, BoosterType boosterType = BoosterType.NONE)
+        {
+            switch (resourceType)
+            {
+                case ResourceType.COIN:
+                    return TrySpendCoins(amount);
+                case ResourceType.BOOSTER:
+                    int currentNum = GetBoosterNum(boosterType);
+                    if (currentNum < amount) return false;
+                    AddBooster(boosterType, -amount);
+                    return true;
+                case ResourceType.NO_ADS:
+                    // No spending for No Ads
+                    return false;
+                case ResourceType.HEART:
+                    if (health < amount) return false;
+                    Health -= amount;
+                    return true;    
+                    break;
+                default:
+                    Debug.LogWarning($"PlayerData.TrySpendResource() - Unsupported ResourceType: {resourceType}");
+                    return false;
+            }
+        }
 
         #region Coin Helpers
         public void AddCoins(int amount)
@@ -141,7 +166,7 @@ namespace NamPhuThuy.Data
         {
             SetBoosterNum(BoosterType.TIMER, 0);
             SetBoosterNum(BoosterType.SHUFFLE, 0);
-            SetBoosterNum(BoosterType.CLEAR_A_FOOD_TYPE, 0);
+            SetBoosterNum(BoosterType.MAGIC_PICK, 0);
         }
         
         [Serializable]

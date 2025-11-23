@@ -77,10 +77,12 @@ JSON for:
             MMEventManager.UnregisterAllCurrentEvents(this);
         }
 
+        /*
         private void OnApplicationPause(bool pauseStatus)
         {
             if (pauseStatus) SaveData();
         }
+        */
 
         private void OnApplicationQuit()
         {
@@ -97,12 +99,13 @@ JSON for:
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
 
             //example: origin = "{"name":"NamTrinh","level":12,"currentExpPoint":31.0}"
-            string origin = JsonUtility.ToJson(cachedPlayerData);
+            string data = JsonUtility.ToJson(cachedPlayerData);
             
             // Got problem when save/load with encrypt
             // origin = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
 
-            File.WriteAllText(_playerDataPath, origin);
+            File.WriteAllText(_playerDataPath, data);
+            DebugLogger.Log(message:$"Save data success: {data}");
         }
 
         public void SaveSettingsData()
@@ -133,7 +136,7 @@ JSON for:
                     // Got problem when save/load with encrypt
                     // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
                     cachedPlayerData = JsonUtility.FromJson<PlayerData>(data);
-                    DebugLogger.Log(message:$"Load data success");
+                    DebugLogger.Log(message:$"Load data success: {data}");
                 }
                 catch (Exception e)
                 {

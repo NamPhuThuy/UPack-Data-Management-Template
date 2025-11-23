@@ -10,7 +10,7 @@ namespace NamPhuThuy.Data
     public class DataClear
     {
 #if UNITY_EDITOR
-        [MenuItem("Tools/NamPhuThuy/Clear Data", false, int.MaxValue)]
+        [MenuItem("Tools/NamPhuThuy - Data/Clear Data", false, int.MaxValue)]
         static void Clear()
         {
             Debug.Log("Clear Player Data");
