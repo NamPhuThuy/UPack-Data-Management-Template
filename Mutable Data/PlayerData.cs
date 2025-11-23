@@ -96,6 +96,29 @@ namespace NamPhuThuy.Data
             }
         }
 
+        public void AddResource(ResourceType type, int amount, BoosterType boosterType = BoosterType.NONE)
+        {
+            if (amount <= 0) return;
+            switch (type)
+            {
+                case ResourceType.COIN:
+                    AddCoins(amount);
+                    break;
+                case ResourceType.BOOSTER:
+                    AddBooster(boosterType, amount);
+                    break;
+                case ResourceType.NO_ADS:
+                    ActiveNoAds();
+                    break;
+                case ResourceType.HEART:
+                    Health += amount;
+                    break;
+                default:
+                    Debug.LogWarning($"PlayerData.AddResource() - Unsupported ResourceType: {type}");
+                    break;
+            }
+        }
+
         #region Coin Helpers
         public void AddCoins(int amount)
         {
