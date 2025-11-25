@@ -38,14 +38,17 @@ namespace NamPhuThuy.Data
             }
         }
 
-        public int health;
-        public int Health
+        public const int MAX_HEALTH = 5;
+        public const int HEALTH_REGEN_TIME = 1200;
+        public long nextHealthRegenTimeStamp;
+        public int currentHealth;
+        public int CurrentHealth
         {
-            get => health;
+            get => currentHealth;
             set
             {
-                health = value;
-                health = Math.Max(0, value);
+                currentHealth = value;
+                currentHealth = Mathf.Clamp(currentHealth, 0, MAX_HEALTH);
 
                 DataManager.Ins.MarkDirty();
                 MMEventManager.TriggerEvent(new EResourceUpdated());
@@ -78,7 +81,7 @@ namespace NamPhuThuy.Data
             sb.AppendLine("=== PlayerData ===");
             sb.AppendLine($"CurrentLevelId: {CurrentLevelId}");
             sb.AppendLine($"Coin: {Coin}");
-            sb.AppendLine($"Health: {Health}");
+            sb.AppendLine($"Health: {CurrentHealth}");
             sb.AppendLine($"IsRemoveAds: {isRemoveAds}");
 
             sb.AppendLine("Boosters:");
@@ -116,8 +119,8 @@ namespace NamPhuThuy.Data
                     // No spending for No Ads
                     return false;
                 case ResourceType.HEART:
-                    if (health < amount) return false;
-                    Health -= amount;
+                    if (currentHealth < amount) return false;
+                    CurrentHealth -= amount;
                     return true;    
                     break;
                 default:
@@ -141,13 +144,77 @@ namespace NamPhuThuy.Data
                     ActiveNoAds();
                     break;
                 case ResourceType.HEART:
-                    Health += amount;
+                    CurrentHealth += amount;
                     break;
                 default:
                     Debug.LogWarning($"PlayerData.AddResource() - Unsupported ResourceType: {type}");
                     break;
             }
         }
+
+        #region Health Helpers
+        
+         public void UpdateHealthRegen()
+        {
+            if (currentHealth >= MAX_HEALTH) return;
+
+            // Convert stored ticks to DateTime
+            var now = DateTime.UtcNow;
+            var nextHealTime = new DateTime(nextHealthRegenTimeStamp == 0
+                ? now.Ticks
+                : nextHealthRegenTimeStamp, DateTimeKind.Utc);
+
+            // If timestamp is zero (first time), schedule next heal
+            if (nextHealthRegenTimeStamp == 0)
+            {
+                ScheduleNextHeal(now);
+                return;
+            }
+
+            // Grant as many hearts as have "elapsed" in time (handles offline progress too)
+            while (currentHealth < MAX_HEALTH && now >= nextHealTime)
+            {
+                currentHealth += 1; // triggers MarkDirty + events via property
+                nextHealTime = nextHealTime.AddSeconds(HEALTH_REGEN_TIME);
+                nextHealthRegenTimeStamp = nextHealTime.Ticks;
+            }
+
+            // Clamp if went over and health is full
+            if (currentHealth >= MAX_HEALTH)
+            {
+                currentHealth = MAX_HEALTH;
+                nextHealthRegenTimeStamp = 0; // stop timer
+            }
+
+            DataManager.Ins.MarkDirty();
+        }
+
+        public void OnHealthSpent()
+        {
+            // Call this whenever you spend a heart (e.g. in TrySpendResource for HEART)
+            if (currentHealth < MAX_HEALTH && nextHealthRegenTimeStamp == 0)
+            {
+                ScheduleNextHeal(DateTime.UtcNow);
+            }
+        }
+
+        public int GetRemainingHealSeconds()
+        {
+            if (currentHealth >= MAX_HEALTH || nextHealthRegenTimeStamp == 0) return 0;
+
+            var now = DateTime.UtcNow;
+            var nextHealTime = new DateTime(nextHealthRegenTimeStamp, DateTimeKind.Utc);
+            var remaining = (int)(nextHealTime - now).TotalSeconds;
+            return Mathf.Max(0, remaining);
+        }
+
+        private void ScheduleNextHeal(DateTime fromTime)
+        {
+            var nextHealTime = fromTime.AddSeconds(HEALTH_REGEN_TIME);
+            nextHealthRegenTimeStamp = nextHealTime.Ticks;
+        }
+
+        #endregion
 
         #region Coin Helpers
         public void AddCoins(int amount)

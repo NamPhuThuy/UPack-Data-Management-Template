@@ -178,7 +178,7 @@ JSON for:
             DebugLogger.Log();
             cachedPlayerData = new PlayerData()
             {
-                health = GamePlayConst.HEALT_CAPACITY
+                currentHealth = GamePlayConst.HEALT_CAPACITY
             };
             SavePlayerData();
         }
