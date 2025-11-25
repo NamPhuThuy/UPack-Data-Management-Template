@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using MoreMountains.Tools;
+using NamPhuThuy.Common;
 using UnityEngine;
 
 namespace NamPhuThuy.Data
@@ -68,6 +70,34 @@ namespace NamPhuThuy.Data
             this.Coin = 0;
             this.isRemoveAds = false;
         }*/
+        
+        public void PrintDebugInfo()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("=== PlayerData ===");
+            sb.AppendLine($"CurrentLevelId: {CurrentLevelId}");
+            sb.AppendLine($"Coin: {Coin}");
+            sb.AppendLine($"Health: {Health}");
+            sb.AppendLine($"IsRemoveAds: {isRemoveAds}");
+
+            sb.AppendLine("Boosters:");
+            if (boosters == null || boosters.Count == 0)
+            {
+                sb.AppendLine("  (none)");
+            }
+            else
+            {
+                for (int i = 0; i < boosters.Count; i++)
+                {
+                    var b = boosters[i];
+                    if (b == null) continue;
+                    sb.AppendLine($"  - Type: {b.boosterType}, Amount: {b.amount}");
+                }
+            }
+
+            DebugLogger.Log(message:$"{sb.ToString()}");
+        }
 
         #region Player Resources Helpers
         
