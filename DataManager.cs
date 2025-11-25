@@ -27,7 +27,7 @@ JSON for:
 */
 
     public partial class DataManager : Singleton<DataManager>, MMEventListener<EBoosterActivated>,
-        MMEventListener<ELevelFinished>
+        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdatedTriggered>
     {
         #region Private Fields
 
@@ -364,8 +364,15 @@ JSON for:
                 PlayerData.CurrentLevelId++;
             }
         }
+        
+        public void OnMMEvent(EResourceUpdatedTriggered eventType)
+        {
+            PlayerData.AddResource(eventType.ResourceType, eventType.amount);
+        }
 
         #endregion
+
+        
     }
 
 #if UNITY_EDITOR
