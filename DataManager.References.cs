@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 
@@ -11,6 +12,8 @@ namespace NamPhuThuy.Data
 
         [Header("Components")]
         [SerializeField] private LevelDataLoader levelDataLoader;
+        [SerializeField] private TMP_FontAsset defaultFont;
+        public TMP_FontAsset DefaultFont => defaultFont;
 
         #endregion
         
