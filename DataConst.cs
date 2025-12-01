@@ -1,6 +1,6 @@
 namespace NamPhuThuy.Data
 {
-    public static class DataConst
+    public static partial class DataConst
     {
         public const float SAVE_INTERVAL = 1.5f;
         public const string DATA_ENCRYPT_KEY = "NamPhuThuy";

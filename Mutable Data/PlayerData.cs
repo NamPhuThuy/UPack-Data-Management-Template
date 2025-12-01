@@ -37,10 +37,8 @@ namespace NamPhuThuy.Data
                 MMEventManager.TriggerEvent(new EResourceUpdated());
             }
         }
-
-        public const int MAX_HEALTH = 5;
-        public const int HEALTH_REGEN_TIME = 1200;
-        public long nextHealthRegenTimeStamp;
+        
+        public float remainTimeForNextHeart;
         public int currentHealth;
         public int CurrentHealth
         {
@@ -48,7 +46,7 @@ namespace NamPhuThuy.Data
             set
             {
                 currentHealth = value;
-                currentHealth = Mathf.Clamp(currentHealth, 0, MAX_HEALTH);
+                currentHealth = Mathf.Clamp(currentHealth, 0, DataConst.MAX_HEALTH);
 
                 DataManager.Ins.MarkDirty();
                 MMEventManager.TriggerEvent(new EResourceUpdated());
@@ -64,6 +62,7 @@ namespace NamPhuThuy.Data
             this.CurrentLevelId = currentLevelId;
             this.Coin = coin;
             this.isRemoveAds = false;
+            remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
         }
         
         // For reflection serialization
@@ -153,66 +152,29 @@ namespace NamPhuThuy.Data
         }
 
         #region Health Helpers
-        
-         public void UpdateHealthRegen()
+
+        public void UpdateWithTimePassed(float deltaTime)
         {
-            if (currentHealth >= MAX_HEALTH) return;
-
-            // Convert stored ticks to DateTime
-            var now = DateTime.UtcNow;
-            var nextHealTime = new DateTime(nextHealthRegenTimeStamp == 0
-                ? now.Ticks
-                : nextHealthRegenTimeStamp, DateTimeKind.Utc);
-
-            // If timestamp is zero (first time), schedule next heal
-            if (nextHealthRegenTimeStamp == 0)
+            if (currentHealth >= DataConst.MAX_HEALTH)
             {
-                ScheduleNextHeal(now);
+                remainTimeForNextHeart = 0;
                 return;
             }
 
-            // Grant as many hearts as have "elapsed" in time (handles offline progress too)
-            while (currentHealth < MAX_HEALTH && now >= nextHealTime)
+            remainTimeForNextHeart -= (long)deltaTime;
+            if (remainTimeForNextHeart <= 0 && currentHealth < DataConst.MAX_HEALTH)
             {
-                currentHealth += 1; // triggers MarkDirty + events via property
-                nextHealTime = nextHealTime.AddSeconds(HEALTH_REGEN_TIME);
-                nextHealthRegenTimeStamp = nextHealTime.Ticks;
-            }
-
-            // Clamp if went over and health is full
-            if (currentHealth >= MAX_HEALTH)
-            {
-                currentHealth = MAX_HEALTH;
-                nextHealthRegenTimeStamp = 0; // stop timer
+                currentHealth++;
+                remainTimeForNextHeart += DataConst.HEALTH_REGEN_TIME;
             }
 
             DataManager.Ins.MarkDirty();
-        }
-
-        public void OnHealthSpent()
-        {
-            // Call this whenever you spend a heart (e.g. in TrySpendResource for HEART)
-            if (currentHealth < MAX_HEALTH && nextHealthRegenTimeStamp == 0)
+            MMEventManager.TriggerEvent(new EResourceUpdated()
             {
-                ScheduleNextHeal(DateTime.UtcNow);
-            }
+                ResourceType = ResourceType.HEART
+            });
         }
 
-        public int GetRemainingHealSeconds()
-        {
-            if (currentHealth >= MAX_HEALTH || nextHealthRegenTimeStamp == 0) return 0;
-
-            var now = DateTime.UtcNow;
-            var nextHealTime = new DateTime(nextHealthRegenTimeStamp, DateTimeKind.Utc);
-            var remaining = (int)(nextHealTime - now).TotalSeconds;
-            return Mathf.Max(0, remaining);
-        }
-
-        private void ScheduleNextHeal(DateTime fromTime)
-        {
-            var nextHealTime = fromTime.AddSeconds(HEALTH_REGEN_TIME);
-            nextHealthRegenTimeStamp = nextHealTime.Ticks;
-        }
 
         #endregion
 

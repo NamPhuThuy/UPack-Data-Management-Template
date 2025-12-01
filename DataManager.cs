@@ -27,7 +27,7 @@ JSON for:
 */
 
     public partial class DataManager : Singleton<DataManager>, MMEventListener<EBoosterActivated>,
-        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdatedTriggered>
+        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdatedTriggered>, MMEventListener<ETimePassed>
     {
         #region Private Fields
 
@@ -369,10 +369,24 @@ JSON for:
         {
             PlayerData.AddResource(eventType.ResourceType, eventType.amount);
         }
+        
+        public void OnMMEvent(ETimePassed eventType)
+        {
+            PlayerData.remainTimeForNextHeart -= eventType.deltaTime;
+            if (PlayerData.currentHealth >= DataConst.MAX_HEALTH) return;
+            
+            if (PlayerData.remainTimeForNextHeart <= 0)
+            {
+                PlayerData.currentHealth = Mathf.Min(GamePlayConst.HEALT_CAPACITY,
+                    PlayerData.currentHealth + 1);
+                PlayerData.remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
+            }
+        }
 
         #endregion
 
-        
+
+       
     }
 
 #if UNITY_EDITOR
