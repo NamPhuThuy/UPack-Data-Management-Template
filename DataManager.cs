@@ -105,7 +105,7 @@ JSON for:
             // origin = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
 
             File.WriteAllText(_playerDataPath, data);
-            DebugLogger.Log(message:$"Save data success: {data}");
+            // DebugLogger.Log(message:$"Save data success: {data}");
         }
 
         public void SaveSettingsData()
