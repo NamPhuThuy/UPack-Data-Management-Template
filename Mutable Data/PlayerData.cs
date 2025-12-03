@@ -121,7 +121,6 @@ namespace NamPhuThuy.Data
                     if (currentHealth < amount) return false;
                     CurrentHealth -= amount;
                     return true;    
-                    break;
                 default:
                     Debug.LogWarning($"PlayerData.TrySpendResource() - Unsupported ResourceType: {resourceType}");
                     return false;
