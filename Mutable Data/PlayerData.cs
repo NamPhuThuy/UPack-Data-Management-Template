@@ -39,6 +39,7 @@ namespace NamPhuThuy.Data
         }
         
         public float remainTimeForNextHeart;
+        public long lastSessionTimestamp;
         public int currentHealth;
         public int CurrentHealth
         {
@@ -158,6 +159,14 @@ namespace NamPhuThuy.Data
             {
                 remainTimeForNextHeart = 0;
                 return;
+            }
+            
+            int healthsToRegen = (int)(deltaTime / DataConst.HEALTH_REGEN_TIME);
+            if (healthsToRegen > 0)
+            {
+                currentHealth += healthsToRegen;
+                currentHealth = Math.Min(currentHealth, DataConst.MAX_HEALTH);
+                deltaTime -= healthsToRegen * DataConst.HEALTH_REGEN_TIME;
             }
 
             remainTimeForNextHeart -= (long)deltaTime;
