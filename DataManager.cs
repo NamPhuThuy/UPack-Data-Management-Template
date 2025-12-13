@@ -178,7 +178,7 @@ JSON for:
             DebugLogger.Log();
             cachedPlayerData = new PlayerData()
             {
-                currentHealth = GamePlayConst.HEALT_CAPACITY
+                health = GamePlayConst.HEALT_CAPACITY
             };
             SavePlayerData();
         }
@@ -361,7 +361,7 @@ JSON for:
         {
             if (eventData.IsWin)
             {
-                PlayerData.CurrentLevelId++;
+                PlayerData.LevelId++;
             }
         }
         
@@ -373,12 +373,12 @@ JSON for:
         public void OnMMEvent(ETimePassed eventType)
         {
             PlayerData.remainTimeForNextHeart -= eventType.deltaTime;
-            if (PlayerData.currentHealth >= DataConst.MAX_HEALTH) return;
+            if (PlayerData.health >= DataConst.MAX_HEALTH) return;
             
             if (PlayerData.remainTimeForNextHeart <= 0)
             {
-                PlayerData.currentHealth = Mathf.Min(GamePlayConst.HEALT_CAPACITY,
-                    PlayerData.currentHealth + 1);
+                PlayerData.health = Mathf.Min(GamePlayConst.HEALT_CAPACITY,
+                    PlayerData.health + 1);
                 PlayerData.remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
             }
         }

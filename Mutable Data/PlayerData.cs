@@ -11,14 +11,14 @@ namespace NamPhuThuy.Data
     [Serializable]
     public partial class PlayerData
     {
-        [SerializeField] private int currentLevelId;
-        public int CurrentLevelId
+        [SerializeField] private int levelId;
+        public int LevelId
         {
-            get => currentLevelId;
+            get => levelId;
             set
             {
-                currentLevelId = value;
-                currentLevelId = Math.Max(0, value);
+                levelId = value;
+                levelId = Math.Max(0, value);
                 DataManager.Ins.MarkDirty();
             }
             
@@ -40,14 +40,14 @@ namespace NamPhuThuy.Data
         
         public float remainTimeForNextHeart;
         public long lastSessionTimestamp;
-        public int currentHealth;
-        public int CurrentHealth
+        public int health;
+        public int Health
         {
-            get => currentHealth;
+            get => health;
             set
             {
-                currentHealth = value;
-                currentHealth = Mathf.Clamp(currentHealth, 0, DataConst.MAX_HEALTH);
+                health = value;
+                health = Mathf.Clamp(health, 0, DataConst.MAX_HEALTH);
 
                 DataManager.Ins.MarkDirty();
                 MMEventManager.TriggerEvent(new EResourceUpdated());
@@ -58,9 +58,9 @@ namespace NamPhuThuy.Data
         
         public List<PlayerBoosterData> boosters = new List<PlayerBoosterData>();
 
-        public PlayerData(int currentLevelId = 0, int coin = 0)
+        public PlayerData(int levelId = 0, int coin = 0)
         {
-            this.CurrentLevelId = currentLevelId;
+            this.LevelId = levelId;
             this.Coin = coin;
             this.isRemoveAds = false;
             remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
@@ -79,9 +79,9 @@ namespace NamPhuThuy.Data
             var sb = new StringBuilder();
 
             sb.AppendLine("=== PlayerData ===");
-            sb.AppendLine($"CurrentLevelId: {CurrentLevelId}");
+            sb.AppendLine($"CurrentLevelId: {LevelId}");
             sb.AppendLine($"Coin: {Coin}");
-            sb.AppendLine($"Health: {CurrentHealth}");
+            sb.AppendLine($"Health: {Health}");
             sb.AppendLine($"IsRemoveAds: {isRemoveAds}");
 
             sb.AppendLine("Boosters:");
@@ -119,8 +119,8 @@ namespace NamPhuThuy.Data
                     // No spending for No Ads
                     return false;
                 case ResourceType.HEART:
-                    if (currentHealth < amount) return false;
-                    CurrentHealth -= amount;
+                    if (health < amount) return false;
+                    Health -= amount;
                     return true;    
                 default:
                     Debug.LogWarning($"PlayerData.TrySpendResource() - Unsupported ResourceType: {resourceType}");
@@ -143,7 +143,7 @@ namespace NamPhuThuy.Data
                     ActiveNoAds();
                     break;
                 case ResourceType.HEART:
-                    CurrentHealth += amount;
+                    Health += amount;
                     break;
                 default:
                     Debug.LogWarning($"PlayerData.AddResource() - Unsupported ResourceType: {type}");
@@ -155,7 +155,7 @@ namespace NamPhuThuy.Data
 
         public void UpdateWithTimePassed(float deltaTime)
         {
-            if (currentHealth >= DataConst.MAX_HEALTH)
+            if (health >= DataConst.MAX_HEALTH)
             {
                 remainTimeForNextHeart = 0;
                 return;
@@ -164,15 +164,15 @@ namespace NamPhuThuy.Data
             int healthsToRegen = (int)(deltaTime / DataConst.HEALTH_REGEN_TIME);
             if (healthsToRegen > 0)
             {
-                currentHealth += healthsToRegen;
-                currentHealth = Math.Min(currentHealth, DataConst.MAX_HEALTH);
+                health += healthsToRegen;
+                health = Math.Min(health, DataConst.MAX_HEALTH);
                 deltaTime -= healthsToRegen * DataConst.HEALTH_REGEN_TIME;
             }
 
             remainTimeForNextHeart -= (long)deltaTime;
-            if (remainTimeForNextHeart <= 0 && currentHealth < DataConst.MAX_HEALTH)
+            if (remainTimeForNextHeart <= 0 && health < DataConst.MAX_HEALTH)
             {
-                currentHealth++;
+                health++;
                 remainTimeForNextHeart += DataConst.HEALTH_REGEN_TIME;
             }
 
