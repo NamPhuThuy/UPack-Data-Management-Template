@@ -26,8 +26,8 @@ JSON for:
 - Anything that needs to change after build
 */
 
-    public partial class DataManager : Singleton<DataManager>, MMEventListener<EBoosterActivated>,
-        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdatedTriggered>, MMEventListener<ETimePassed>
+    public partial class DataManager : Singleton<DataManager>, MMEventListener<EBooster_Fire>,
+        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdate_Fire>, MMEventListener<ETimePassed>
     {
         #region Private Fields
 
@@ -347,7 +347,7 @@ JSON for:
 
         #region MMEvent Listeners
 
-        public void OnMMEvent(EBoosterActivated eventData)
+        public void OnMMEvent(EBooster_Fire eventData)
         {
             DebugLogger.Log(message: $"Data", context: this);
             MinusBoosterAmount(eventData.BoosterType);
@@ -365,7 +365,7 @@ JSON for:
             }
         }
         
-        public void OnMMEvent(EResourceUpdatedTriggered eventType)
+        public void OnMMEvent(EResourceUpdate_Fire eventType)
         {
             PlayerData.AddResource(eventType.ResourceType, eventType.amount);
         }
