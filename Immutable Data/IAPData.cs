@@ -14,29 +14,28 @@ namespace NamPhuThuy.Data
     {
         [Header("IAP Data")]
         [SerializeField] private IAPRecord[] records;
-        private Dictionary<string, IAPRecord> _dictIAPData;
+        private Dictionary<string, IAPRecord> _dictRecordByID;
 
-        public Dictionary<string, IAPRecord> DictIAPData
+        public Dictionary<string, IAPRecord> Data
         {
             get
             {
-                if (_dictIAPData == null)
+                if (_dictRecordByID == null)
                 {
-                    EnsureDict();
+                    TryInitDict();
                 }
 
-                return _dictIAPData;
+                return _dictRecordByID;
             }
         }
         
         #region Private Methods
 
-        private void EnsureDict()
+        private void TryInitDict()
         {
-            if (_dictIAPData != null) return;
-            _dictIAPData = new Dictionary<string, IAPRecord>(records?.Length ?? 0);
-            if (_dictIAPData == null) return;
-            
+            if (_dictRecordByID != null) return;
+            _dictRecordByID = new Dictionary<string, IAPRecord>(records?.Length ?? 0);
+            if (_dictRecordByID == null) return;
             
             foreach (var r in records)
             {
@@ -46,12 +45,12 @@ namespace NamPhuThuy.Data
                     continue;
                 }
                 
-                if (string.IsNullOrEmpty(r.bundleId))
+                if (string.IsNullOrEmpty(r.BundleId))
                 {
                     DebugLogger.LogError(message:$"Bundle is null", context:this);
                     continue;
                 }
-                _dictIAPData[r.bundleId] = r; // last one wins if duplicates
+                _dictRecordByID[r.BundleId] = r; // last one wins if duplicates
             }
         }
 
@@ -59,52 +58,44 @@ namespace NamPhuThuy.Data
 
         #region Public Methods
 
-        public IAPRecord GetIAPData(string bundleId)
+        public IAPRecord GetRecord(string bundleId)
         {
-            EnsureDict();
-            if (_dictIAPData == null) return null;
-            return _dictIAPData.GetValueOrDefault(bundleId);
+            TryInitDict();
+            if (_dictRecordByID == null) return null;
+            return _dictRecordByID.GetValueOrDefault(bundleId);
         }   
 
         #endregion
     }
     
+    public enum IAPType
+    {
+        BUNDLE = 0,
+        COIN = 1,
+        NO_ADS = 2,
+        BOOSTER = 3
+    }
+    
     [System.Serializable]
     public class IAPRecord
     {
-        public enum IAPType
-        {
-            BUNDLE = 0,
-            COIN = 1,
-            NO_ADS = 2,
-            BOOSTER = 3
-        }
-        
-        public string bundleName;
-        public string bundleId;
-        public IAPType iapType;
-        public Sprite titleImage;
-        public Sprite subTitleImage;
-        public string description;
-        public string price;
+        [SerializeField] private string bundleName;
+        [SerializeField] private string bundleId;
+        [SerializeField] private IAPType iapType;
+        [SerializeField] private Sprite titleImage;
+        [SerializeField] private Sprite subTitleImage;
+        [SerializeField] private string description;
+        [SerializeField] private string price;
 
-        public List<ResourceAmount> rewardList;
+        [SerializeField] private List<ResourceAmount> rewardList;
         
-        public int GetResourceAmount(ResourceType type)
-        {
-            if (rewardList == null) return 0;
-
-            foreach (var resource in rewardList)
-            {
-                if (resource != null && type == resource.resourceType)
-                {
-                    return resource.amount;
-                }
-            }
-
-            return 0;
-        }
-        
-        
+        public string BundleName => bundleName;
+        public string BundleId => bundleId;
+        public IAPType Type => iapType;
+        public Sprite TitleImage => titleImage;
+        public Sprite SubTitleImage => subTitleImage;
+        public string Description => description;
+        public string Price => price;
+        public List<ResourceAmount> RewardList => rewardList;
     }
 }

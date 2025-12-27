@@ -39,7 +39,7 @@ JSON for:
 
         protected override void Awake()
         {
-            DebugLogger.Log();
+            // DebugLogger.Log();
             base.Awake();
             levelDataLoader.OnLoadLevelDataCompleted += OnLevelDataLoaded;
         }
@@ -53,7 +53,7 @@ JSON for:
 
         private IEnumerator Start()
         {
-            DebugLogger.Log();
+            // DebugLogger.Log();
             yield return null;
             
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";

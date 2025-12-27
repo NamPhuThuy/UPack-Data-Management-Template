@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NamPhuThuy.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -107,29 +108,6 @@ namespace NamPhuThuy.Data
             this.resourceType = resourceType;
             this.boosterType = boosterType;
             this.amount = amount;
-        }
-    }
-    
-    public static class ResourceAmountListExtensions
-    {
-        /// <summary>
-        /// Gets the amount of coins from the resource list.
-        /// Returns 0 if no coin resource is found.
-        /// </summary>
-        public static int GetCoinAmount(this List<ResourceAmount> resources)
-        {
-            if (resources == null || resources.Count == 0) return 0;
-    
-            foreach (var resource in resources)
-            {
-                if (resource == null) continue;
-                if (resource.resourceType == ResourceType.COIN)
-                {
-                    return resource.amount;
-                }
-            }
-    
-            return 0;
         }
     }
     
