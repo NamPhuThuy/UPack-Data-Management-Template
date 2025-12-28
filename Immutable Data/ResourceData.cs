@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NamPhuThuy.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NamPhuThuy.Data
 {
@@ -15,43 +16,43 @@ namespace NamPhuThuy.Data
     {
         [Header("Resource Data")]
         [SerializeField] private ResourceRecord[] resourceRecords;
-        private Dictionary<ResourceType, ResourceRecord> _dictResourceData;
+        private Dictionary<ResourceType, ResourceRecord> _dictRecordByType;
 
-        public Dictionary<ResourceType, ResourceRecord> DictResourceData
+        public Dictionary<ResourceType, ResourceRecord> Data
         {
             get
             {
-                if (_dictResourceData == null)
+                if (_dictRecordByType == null)
                 {
-                    EnsureIndex();
+                    EnsureDictInit();
                 }
-                return _dictResourceData;
+                return _dictRecordByType;
             }
         }
 
-        private void EnsureIndex()
+        private void EnsureDictInit()
         {
-            if (_dictResourceData != null) return;
-            _dictResourceData = new Dictionary<ResourceType, 
+            if (_dictRecordByType != null) return;
+            _dictRecordByType = new Dictionary<ResourceType, 
                 ResourceRecord>(resourceRecords?.Length ?? 0);
             if (resourceRecords == null) return;
             foreach (var r in resourceRecords)
             {
                 if (r == null) continue;
-                _dictResourceData[r.resourceType] = r;
+                _dictRecordByType[r.resourceType] = r;
             }
         }
 
         public ResourceRecord GetResourceRecord(ResourceType resourceType)
         {
-            EnsureIndex();
-            return _dictResourceData != null && _dictResourceData.TryGetValue(resourceType, out var record) ? record : null;
+            EnsureDictInit();
+            return _dictRecordByType != null && _dictRecordByType.TryGetValue(resourceType, out var record) ? record : null;
         }
         
         public Sprite GetResourceGameplayImage(ResourceType resourceType)
         {
-            EnsureIndex();
-            if (_dictResourceData != null && _dictResourceData.TryGetValue(resourceType, out var record))
+            EnsureDictInit();
+            if (_dictRecordByType != null && _dictRecordByType.TryGetValue(resourceType, out var record))
             {
                 return record.gameplayImage;
             }
@@ -60,8 +61,8 @@ namespace NamPhuThuy.Data
         
         public int GetBoosterPrice(BoosterType boosterType)
         {
-            EnsureIndex();
-            foreach (var record in _dictResourceData.Values)
+            EnsureDictInit();
+            foreach (var record in _dictRecordByType.Values)
             {
                 if (record.resourceType == ResourceType.BOOSTER && record.boosterType == boosterType)
                 {
@@ -111,6 +112,7 @@ namespace NamPhuThuy.Data
         }
     }
     
+    // Cant rename to AssetType because of conflict with "Asset" term in Unity
     public enum ResourceType
     {
         NONE = 0,
