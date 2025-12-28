@@ -22,7 +22,7 @@ namespace NamPhuThuy.Data
             {
                 if (_dictRecordByID == null)
                 {
-                    TryInitDict();
+                    EnsureDictInit();
                 }
 
                 return _dictRecordByID;
@@ -31,7 +31,7 @@ namespace NamPhuThuy.Data
         
         #region Private Methods
 
-        private void TryInitDict()
+        private void EnsureDictInit()
         {
             if (_dictRecordByID != null) return;
             _dictRecordByID = new Dictionary<string, IAPRecord>(records?.Length ?? 0);
@@ -60,7 +60,7 @@ namespace NamPhuThuy.Data
 
         public IAPRecord GetRecord(string bundleId)
         {
-            TryInitDict();
+            EnsureDictInit();
             if (_dictRecordByID == null) return null;
             return _dictRecordByID.GetValueOrDefault(bundleId);
         }   

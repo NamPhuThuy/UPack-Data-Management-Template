@@ -118,7 +118,7 @@ JSON for:
 
         private IEnumerator LoadPlayerData()
         {
-            DebugLogger.Log();
+            // DebugLogger.Log();
             _playerDataPath = $"{Application.persistentDataPath}/player.{DataConst.DATA_FILES_EXTENSION}";
             if (File.Exists(_playerDataPath))
             {
@@ -136,11 +136,11 @@ JSON for:
                     // Got problem when save/load with encrypt
                     // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
                     cachedPlayerData = JsonUtility.FromJson<PlayerData>(data);
-                    DebugLogger.Log(message:$"Load data success: {data}");
+                    // DebugLogger.Log(message:$"Load data success: {data}");
                 }
                 catch (Exception e)
                 {
-                    // Debug.Log(e.Message);
+                    DebugLogger.Log(message: $"Error: {e.Message}");
                     ResetPlayerData();
                 }
             }
@@ -229,7 +229,7 @@ JSON for:
 
         public IEnumerator LoadData()
         {
-            DebugLogger.Log();
+            // DebugLogger.Log();
             yield return StartCoroutine(LoadPlayerData());
             yield return StartCoroutine(LoadSettingsData());
         }
