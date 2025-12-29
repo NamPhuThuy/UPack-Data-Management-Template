@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: ResourceData
   m_EditorClassIdentifier: 
   resourceRecords:
-  - assetType: 1
+  - resourceType: 1
     boosterType: 0
     gameplayImage: {fileID: 21300000, guid: 918503d338ab4ef40add5d34e38065c2, type: 3}
     inventoryImage: {fileID: 21300000, guid: 918503d338ab4ef40add5d34e38065c2, type: 3}
     description: 
-    priceInAssets: []
-  - assetType: 3
+    priceInResources: []
+  - resourceType: 3
     boosterType: 0
     gameplayImage: {fileID: 21300000, guid: 22145bf52d9c5844b948fd1b767c9178, type: 3}
     inventoryImage: {fileID: 21300000, guid: 22145bf52d9c5844b948fd1b767c9178, type: 3}
     description: 
-    priceInAssets: []
+    priceInResources: []
