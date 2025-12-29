@@ -51,11 +51,14 @@ MonoBehaviour:
   conceptData: {fileID: 11400000, guid: 9c98df0161479b4458e1f1c9b6fedf6c, type: 2}
   eventRewardData: {fileID: 11400000, guid: 236599fc25a879746a4f4e9bb40836db, type: 2}
   levelData: {fileID: 11400000, guid: 06de3165dd342974f9effa3fefa1b3bb, type: 2}
-  serviceData: {fileID: 11400000, guid: 4faf889f050edbd4483852371a7f9918, type: 2}
+  grillMechanicData: {fileID: 11400000, guid: 1265fa8d914a46c4b87d51977ca50c18, type: 2}
   levelDataLoader: {fileID: 226066221087009291}
+  defaultFont: {fileID: 11400000, guid: 3a3996006de193546b3a25b9393d4c5f, type: 2}
   cachedPlayerData:
-    currentLevelId: 0
+    levelId: 0
     coin: 0
+    remainTimeForNextHeart: 0
+    lastSessionTimestamp: 0
     health: 0
     isRemoveAds: 0
     boosters: []

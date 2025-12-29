@@ -15,13 +15,13 @@ namespace NamPhuThuy.Data
 
         private Dictionary<int, #SCRIPTNAME#Record> _dictData;
         
-        public Dictionary<int, #SCRIPTNAME#Record> DictData
+        public Dictionary<int, #SCRIPTNAME#Record> Data
         {
             get
             {
                 if (_dictData == null)
                 {
-                    EnsureIndex();
+                    EnsureInitDict();
                 }   
 
                 return _dictData;
@@ -57,13 +57,13 @@ namespace NamPhuThuy.Data
 
         #region Private Methods
         
-        private void EnsureIndex()
+        private void EnsureInitDict()
         {
             if (_dictData != null) return;
-            BuildIndex();
+            InitDict();
         }
         
-        private void BuildIndex()
+        private void InitDict()
         {
             if (data == null || data.Count == 0)
             {
@@ -86,7 +86,7 @@ namespace NamPhuThuy.Data
         
          public #SCRIPTNAME#Record GetRecord(int recordId)
         {
-            EnsureIndex();
+            EnsureInitDict();
             return _dictData.GetValueOrDefault(recordId);
         }
         
