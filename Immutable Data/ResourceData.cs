@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using NamPhuThuy.Data;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -84,7 +83,6 @@ namespace NamPhuThuy.Data
     {
         public ResourceType resourceType;
         
-        [ShowIf(nameof(resourceType), ResourceType.BOOSTER)]
         public BoosterType boosterType;
         
         public Sprite gameplayImage;
@@ -99,7 +97,6 @@ namespace NamPhuThuy.Data
     {
         public ResourceType resourceType;
         
-        [ShowIf(nameof(resourceType), ResourceType.BOOSTER)]
         public BoosterType boosterType;
 
         public int amount;
