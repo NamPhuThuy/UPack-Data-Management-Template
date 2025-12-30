@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff87608ee33c314479aee3e65b2619b5, type: 3}
+  m_Name: EventRewardData
+  m_EditorClassIdentifier: 
+  data:
+  - eventRewardType: 1
+    rewards:
+    - resourceType: 1
+      boosterType: 0
+      amount: 40
+  - eventRewardType: 2
+    rewards:
+    - resourceType: 1
+      boosterType: 0
+      amount: 80
+  - eventRewardType: 4
+    rewards:
+    - resourceType: 1
+      boosterType: 0
+      amount: 500
+  - eventRewardType: 3
+    rewards:
+    - resourceType: 3
+      boosterType: 0
+      amount: 1
