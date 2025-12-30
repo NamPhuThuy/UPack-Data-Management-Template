@@ -99,6 +99,21 @@ namespace NamPhuThuy.Data
                 return resourceData;
             }
         }
+        
+        [SerializeField] private BoosterData boosterData;
+
+        public BoosterData BoosterData
+        {
+            get
+            {
+                if (boosterData == null)
+                {
+                    boosterData = Resources.Load<BoosterData>("BoosterData");
+                }
+
+                return boosterData;
+            }
+        }
 
       
 

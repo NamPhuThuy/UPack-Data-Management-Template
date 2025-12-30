@@ -3,7 +3,6 @@ using System.Collections;
 using System.IO;
 using MoreMountains.Tools;
 using NamPhuThuy.Common;
-using NamPhuThuy.GamePlay;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -26,8 +25,7 @@ JSON for:
 - Anything that needs to change after build
 */
 
-    public partial class DataManager : Singleton<DataManager>, MMEventListener<EBooster_Fire>,
-        MMEventListener<ELevelFinished>, MMEventListener<EResourceUpdate_Fire>, MMEventListener<ETimePassed>
+    public partial class DataManager : Singleton<DataManager>
     {
         #region Private Fields
 
@@ -41,14 +39,12 @@ JSON for:
         {
             // DebugLogger.Log();
             base.Awake();
-            levelDataLoader.OnLoadLevelDataCompleted += OnLevelDataLoaded;
         }
 
         public override void OnDestroy()
         {
             DebugLogger.Log();
             base.OnDestroy();
-            levelDataLoader.OnLoadLevelDataCompleted -= OnLevelDataLoaded;
         }
 
         private IEnumerator Start()
@@ -178,7 +174,7 @@ JSON for:
             DebugLogger.Log();
             cachedPlayerData = new PlayerData()
             {
-                health = GamePlayConst.HEALT_CAPACITY
+                health = DataConst.MAX_HEALTH
             };
             SavePlayerData();
         }
@@ -187,15 +183,6 @@ JSON for:
         {
             cachedPlayerSettingsData = new PlayerSettingsData();
             SaveSettingsData();
-        }
-
-        #endregion
-
-        #region Level Data
-
-        private void OnLevelDataLoaded(LevelData obj)
-        {
-            levelData = obj;
         }
 
         #endregion
@@ -293,31 +280,6 @@ JSON for:
         #endregion
          */
 
-#if UNITY_EDITOR
-        public bool LoadStaticDatas()
-        {
-            levelData = Resources.Load<LevelData>("LevelData");
-            boosterData = Resources.Load<BoosterData>("BoosterData");
-            iapData = Resources.Load<IAPData>("IAPData");
-            resourceData = Resources.Load<ResourceData>("ResourceData");
-
-
-            if (levelData == null)
-                return false;
-
-
-            /*// Print all Resources folders to help debug
-        Object[] resourcesFolders = Resources.FindObjectsOfTypeAll<DefaultAsset>();
-        foreach (Object folder in resourcesFolders) {
-            if (AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(folder))) {
-                Debug.Log("Resources Folder: " + AssetDatabase.GetAssetPath(folder));
-            }
-        }*/
-
-            return true;
-        }
-#endif
-
         #region Event Listen
 
         private void MinusBoosterAmount(BoosterType type)
@@ -345,45 +307,7 @@ JSON for:
         #endregion
 
 
-        #region MMEvent Listeners
-
-        public void OnMMEvent(EBooster_Fire eventData)
-        {
-            DebugLogger.Log(message: $"Data", context: this);
-            MinusBoosterAmount(eventData.BoosterType);
-            MMEventManager.TriggerEvent(new EResourceUpdated()
-            {
-                ResourceType = ResourceType.BOOSTER
-            });
-        }
-
-        public void OnMMEvent(ELevelFinished eventData)
-        {
-            if (eventData.IsWin)
-            {
-                PlayerData.LevelId++;
-            }
-        }
-        
-        public void OnMMEvent(EResourceUpdate_Fire eventType)
-        {
-            PlayerData.AddResource(eventType.ResourceType, eventType.amount);
-        }
-        
-        public void OnMMEvent(ETimePassed eventType)
-        {
-            PlayerData.remainTimeForNextHeart -= eventType.deltaTime;
-            if (PlayerData.health >= DataConst.MAX_HEALTH) return;
-            
-            if (PlayerData.remainTimeForNextHeart <= 0)
-            {
-                PlayerData.health = Mathf.Min(GamePlayConst.HEALT_CAPACITY,
-                    PlayerData.health + 1);
-                PlayerData.remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
-            }
-        }
-
-        #endregion
+      
 
 
        
@@ -416,17 +340,6 @@ JSON for:
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Reset Player Data")) dataManager.ResetPlayerData();
             if (GUILayout.Button("Reset Settings Data")) dataManager.ResetSettingsData();
-
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Load Static Datas"))
-            {
-                if (!dataManager.LoadStaticDatas())
-                    Debug.LogError($"Load statics datas failed");
-                else
-                    Debug.LogError($"Load statics successfully");
-            }
 
             GUILayout.EndHorizontal();
         }

@@ -8,7 +8,6 @@ namespace NamPhuThuy.Data
 {
     public class LevelDataLoader : MonoBehaviour
     {
-        [SerializeField] private LevelData defaultLevelData;
 
         [Header("Native JSON Override")] [SerializeField]
         private TextAsset jsonFileOverride;
@@ -16,11 +15,9 @@ namespace NamPhuThuy.Data
         [Header("Remote Config Override")] [SerializeField]
         private string remoteConfigKey = "level_data";
 
-        private LevelData _runtimeLevelData;
 
         #region Event
 
-        public event Action<LevelData> OnLoadLevelDataCompleted;
         public event Action<string> OnLoadLevelDataFailed;
 
         #endregion
@@ -29,10 +26,7 @@ namespace NamPhuThuy.Data
 
         private void OnDestroy()
         {
-            if (_runtimeLevelData != null)
-            {
-                Destroy(_runtimeLevelData);
-            }
+           
         }
 
         #endregion
@@ -154,31 +148,6 @@ namespace NamPhuThuy.Data
             OnLoadLevelDataCompleted?.Invoke(_runtimeLevelData);
         }*/
 
-        public void LoadDataFromRemoteConfig(string jsonText)
-        {
-            if (defaultLevelData == null)
-            {
-                Debug.LogError("Default LevelData reference is not assigned!");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(jsonText))
-            {
-                Debug.LogError("Remote config JSON text is empty!");
-                return;
-            }
-
-            if (_runtimeLevelData == null)
-            {
-                _runtimeLevelData = ScriptableObject.CreateInstance<LevelData>();
-            }
-
-            // _runtimeLevelData.ImportFromJsonRuntime(jsonText);
-            Debug.Log(
-                $"Successfully loaded level data from remote config. Total levels: {_runtimeLevelData.GetTotalLevels()}");
-
-            OnLoadLevelDataCompleted?.Invoke(_runtimeLevelData);
-        }
 
         #endregion
     }
