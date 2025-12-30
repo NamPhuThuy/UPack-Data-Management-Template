@@ -11,6 +11,6 @@ namespace NamPhuThuy.Data
         
         // STATS
         public const int MAX_HEALTH = 5;
-        public const float HEALTH_REGEN_TIME = 60f;
+        public static int HEALTH_REGEN_TIME = 1200;
     }
 }
