@@ -232,6 +232,7 @@ JSON for:
                     string data = File.ReadAllText(_settingsDataPath);
                     // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
                     cachedPlayerSettingsData = JsonUtility.FromJson<PlayerSettingsData>(data);
+                    
                 }
                 catch (Exception e)
                 {
@@ -257,6 +258,7 @@ JSON for:
                     string data = File.ReadAllText(_progressDataPath);
                     // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
                     cachedPProgressData = JsonUtility.FromJson<PProgressData>(data);
+                    _isProgressDataLoaded = true;
                 }
                 catch (Exception e)
                 {
@@ -287,11 +289,11 @@ JSON for:
                 catch (Exception e)
                 {
                     // Debug.Log(e.Message);
-                    ResetProgressData();
+                    ResetInventoryData();
                 }
             }
             else
-                ResetProgressData();
+                ResetInventoryData();
 
             // yield return null;
         }
@@ -349,7 +351,7 @@ JSON for:
             ResetPlayerData();
             ResetSettingsData();
             ResetProgressData();
-            // ResetResourceData();
+            ResetInventoryData();
         }
 
         public void SaveData()
@@ -358,7 +360,7 @@ JSON for:
             SavePlayerData();
             SaveSettingsData();
             SaveProgressData();
-            // SaveResourceData();
+            SaveInventoryData();
         }
 
         public void LoadData()
