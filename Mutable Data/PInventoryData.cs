@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 
 namespace NamPhuThuy.DataManage
@@ -146,6 +147,46 @@ namespace NamPhuThuy.DataManage
         #region Public Methods
 
         
+
+        #endregion
+
+        #region Coin Helpers
+
+        #region Coin Helpers
+
+        
+        [SerializeField] private int coin;
+        public int Coin
+        {
+            get => coin;
+            set
+            {
+                coin = value;
+                coin = Math.Max(0, value);
+
+                DataManager.Ins.MarkDirty();
+                MMEventManager.TriggerEvent(new EResourceUpdated()
+                {
+                    ResourceType = ResourceType.COIN
+                });
+            }
+        }
+        
+        public void AddCoins(int amount)
+        {
+            if (amount <= 0) return;
+            Coin = coin + amount;
+        }
+
+        public bool TrySpendCoins(int amount)
+        {
+            if (amount <= 0) return true;
+            if (coin < amount) return false;
+            Coin = coin - amount;
+            return true;
+        }
+
+        #endregion
 
         #endregion
     }

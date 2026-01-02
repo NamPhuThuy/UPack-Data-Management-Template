@@ -174,14 +174,14 @@ JSON for:
             File.WriteAllText(_progressDataPath, origin);
         }
         
-        public void SaveResourceData()
+        public void SaveInventoryData()
         {
-            _resourceDataPath = $"{Application.persistentDataPath}/resource.{DataConst.FILES_EXTENSION}";
+            _inventoryDataPath = $"{Application.persistentDataPath}/resource.{DataConst.FILES_EXTENSION}";
             // PInventoryData.SyncDictToListForSave();
             
             string origin = JsonUtility.ToJson(cachedPInventoryData);
             // origin = EncryptHelper.XOROperator(origin, DataConst.DATA_ENCRYPT_KEY);
-            File.WriteAllText(_resourceDataPath, origin);
+            File.WriteAllText(_inventoryDataPath, origin);
         }
 
         #endregion
@@ -247,9 +247,11 @@ JSON for:
         
         private void LoadProgressData()
         {
+            Debug.Log(message: $"DataManager.LoadProgressData()");
             _progressDataPath = $"{Application.persistentDataPath}/progress.{DataConst.FILES_EXTENSION}";
             if (File.Exists(_progressDataPath))
             {
+                Debug.Log(message:$"DataManager.LoadProgressData() - {_progressDataPath} exist, load data");
                 try
                 {
                     string data = File.ReadAllText(_progressDataPath);
@@ -258,24 +260,27 @@ JSON for:
                 }
                 catch (Exception e)
                 {
-                    // Debug.Log(e.Message);
+                    Debug.Log(message:$"DataManager.LoadProgressData() - Exception: {e.Message}, reset progress data");
                     ResetProgressData();
                 }
             }
             else
+            {
+                Debug.Log(message: $"DataManager.LoadProgressData() - {_progressDataPath} not exist, reset progress data");
                 ResetProgressData();
+            }
 
             // yield return null;
         }
         
-        private void LoadResourceData()
+        private void LoadInventoryData()
         {
-            _resourceDataPath = $"{Application.persistentDataPath}/resource.{DataConst.FILES_EXTENSION}";
-            if (File.Exists(_resourceDataPath))
+            _inventoryDataPath = $"{Application.persistentDataPath}/resource.{DataConst.FILES_EXTENSION}";
+            if (File.Exists(_inventoryDataPath))
             {
                 try
                 {
-                    string data = File.ReadAllText(_resourceDataPath);
+                    string data = File.ReadAllText(_inventoryDataPath);
                     // data = EncryptHelper.XOROperator(data, DataConst.DATA_ENCRYPT_KEY);
                     cachedPInventoryData = JsonUtility.FromJson<PInventoryData>(data);
                 }
@@ -310,14 +315,15 @@ JSON for:
         
         public void ResetProgressData()
         {
+            Debug.Log(message:$"DataManager.ResetProgressData()");
             cachedPProgressData = new PProgressData();
             SaveProgressData();
         }
         
-        public void ResetResourceData()
+        public void ResetInventoryData()
         {
             cachedPInventoryData = new PInventoryData();
-            SaveResourceData();
+            SaveInventoryData();
         }
 
         #endregion
@@ -365,7 +371,7 @@ JSON for:
             LoadPlayerData();
             LoadSettingsData();
             LoadProgressData();
-            // LoadResourceData();
+            LoadInventoryData();
         }
 
         #endregion

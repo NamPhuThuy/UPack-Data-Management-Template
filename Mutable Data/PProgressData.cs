@@ -1,4 +1,5 @@
 using System;
+using MoreMountains.Tools;
 using UnityEngine;
 
 
@@ -35,6 +36,7 @@ namespace NamPhuThuy.DataManage
         {
             IsAdsRemoved = true;
         }
-        
+
+       
     }
 }

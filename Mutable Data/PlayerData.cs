@@ -11,23 +11,9 @@ namespace NamPhuThuy.DataManage
     [Serializable]
     public partial class PlayerData
     {
-        public int coin;
-        public int Coin
-        {
-            get => coin;
-            set
-            {
-                coin = value;
-                coin = Math.Max(0, value);
-
-                DataManager.Ins.MarkDirty();
-                MMEventManager.TriggerEvent(new EResourceUpdated());
-            }
-        }
-        
         public float remainTimeForNextHeart;
         public long lastSessionTimestamp;
-        public int health;
+        [SerializeField] private int health;
         public int Health
         {
             get => health;
@@ -37,15 +23,19 @@ namespace NamPhuThuy.DataManage
                 health = Mathf.Clamp(health, 0, DataConst.MAX_HEALTH);
 
                 DataManager.Ins.MarkDirty();
-                MMEventManager.TriggerEvent(new EResourceUpdated());
+                MMEventManager.TriggerEvent(new EResourceUpdated()
+                {
+                    ResourceType =  ResourceType.HEART
+                });
             }
         }
         public List<PlayerBoosterData> boosters = new List<PlayerBoosterData>();
 
         public PlayerData()
         {
+            // Some of these lines create stack-overflow error
             // this.LevelId = levelId;
-            // this.Coin = coin;
+            // this.Coin = coin; 
             /*health = DataConst.MAX_HEALTH;
             remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;*/
         }
@@ -63,7 +53,6 @@ namespace NamPhuThuy.DataManage
             var sb = new StringBuilder();
 
             sb.AppendLine("=== PlayerData ===");
-            sb.AppendLine($"Coin: {Coin}");
             sb.AppendLine($"Health: {Health}");
 
             sb.AppendLine("Boosters:");
@@ -91,7 +80,7 @@ namespace NamPhuThuy.DataManage
             switch (resourceType)
             {
                 case ResourceType.COIN:
-                    return TrySpendCoins(amount);
+                    return DataManager.Ins.PInventoryData.TrySpendCoins(amount);
                 case ResourceType.BOOSTER:
                     int currentNum = GetBoosterNum(boosterType);
                     if (currentNum < amount) return false;
@@ -112,7 +101,7 @@ namespace NamPhuThuy.DataManage
             switch (type)
             {
                 case ResourceType.COIN:
-                    AddCoins(amount);
+                    DataManager.Ins.PInventoryData.AddCoins(amount);
                     break;
                 case ResourceType.BOOSTER:
                     AddBooster(boosterType, amount);
@@ -165,29 +154,8 @@ namespace NamPhuThuy.DataManage
         #endregion
 
         #region Coin Helpers
-        public void AddCoins(int amount)
-        {
-            if (amount <= 0) return;
-            Coin = coin + amount;
-        }
-
-        public bool TrySpendCoins(int amount)
-        {
-            if (amount <= 0) return true;
-            if (coin < amount) return false;
-            SpendCoins(amount);
-            return true;
-        }
         
-        public void SpendCoins(int amount)
-        {
-            Coin = coin - amount;
-        }
 
-        public void ClearAllCoins()
-        {
-            Coin = 0;
-        }
         #endregion
         
         #region Booster Helpers
@@ -230,13 +198,6 @@ namespace NamPhuThuy.DataManage
             DataManager.Ins.MarkDirty();
         }
 
-        public void ClearBoosters()
-        {
-            SetBoosterNum(BoosterType.TIMER, 0);
-            SetBoosterNum(BoosterType.SHUFFLE, 0);
-            SetBoosterNum(BoosterType.MAGIC_PICK, 0);
-        }
-        
         [Serializable]
         public class PlayerBoosterData
         {
@@ -266,9 +227,8 @@ namespace NamPhuThuy.DataManage
                     case ResourceType.COIN:
                         if (amount <= 0) break;
                             
-                        AddCoins(amount);
+                        DataManager.Ins.PInventoryData.AddCoins(amount);
                         anyGranted = true;
-                            
                         break;
 
                     case ResourceType.BOOSTER:
@@ -281,20 +241,12 @@ namespace NamPhuThuy.DataManage
                     case ResourceType.NO_ADS:
 
                         DataManager.Ins.PProgressData.RemoveAds();
+                        anyGranted = true;
                         break;
                 }
             }
 
             if (anyGranted) DataManager.Ins.MarkDirty();
-            if (anyGranted)
-            {
-                Debug.Log($"PlayerData.TryApplyRewards() - rewards are applied");
-            }
-            else
-            {
-                Debug.Log($"PlayerData.TryApplyRewards() - rewards haven't applied");
-            }
-            
             return anyGranted;
         }
 
@@ -307,7 +259,35 @@ namespace NamPhuThuy.DataManage
             {
                 return false;
             }
-            return TryApplyRewards(new List<ResourceAmount> { item }, amountMultiplier);
+            
+            bool anyGranted = false;
+            
+            int amount = Math.Max(0, item.amount * Math.Max(1, amountMultiplier));
+            switch (item.resourceType)
+            {
+                case ResourceType.COIN:
+                    if (amount <= 0) break;
+                            
+                    DataManager.Ins.PInventoryData.AddCoins(amount);
+                    anyGranted = true;
+                    break;
+
+                case ResourceType.BOOSTER:
+                    if (amount <= 0) break;
+                        
+                    SetBoosterNum(item.boosterType, GetBoosterNum(item.boosterType) + amount);
+                    anyGranted = true;
+                    break;
+
+                case ResourceType.NO_ADS:
+
+                    DataManager.Ins.PProgressData.RemoveAds();
+                    anyGranted = true;
+                    break;
+            }
+            
+            if (anyGranted) DataManager.Ins.MarkDirty();
+            return anyGranted;
         }
         
        

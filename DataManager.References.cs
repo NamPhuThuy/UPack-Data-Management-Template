@@ -23,12 +23,12 @@ namespace NamPhuThuy.DataManage
         private string _playerDataPath;
         private string _settingsDataPath;
         private string _progressDataPath;
-        private string _resourceDataPath;
+        private string _inventoryDataPath;
 
         private bool _isPlayerDataLoaded;
         private bool _isSettingsDataLoaded;
         private bool _isProgressDataLoaded;
-        private bool _isResourceDataLoaded;
+        private bool _isInventoryDataLoaded;
         
 
         [SerializeField] private PlayerData cachedPlayerData;
@@ -89,11 +89,11 @@ namespace NamPhuThuy.DataManage
         {
             get
             {
-                if (!_isResourceDataLoaded)
+                if (!_isInventoryDataLoaded)
                 {
                     // StartCoroutine(LoadProgressData());
                     LoadProgressData();
-                    _isResourceDataLoaded = true;
+                    _isInventoryDataLoaded = true;
                 }
 
                 return cachedPInventoryData;
