@@ -363,9 +363,9 @@ JSON for:
             yield return StartCoroutine(LoadSettingsData());
             yield return StartCoroutine(LoadProgressData());*/
             LoadPlayerData();
-            LoadResourceData();
             LoadSettingsData();
-            // LoadProgressData();
+            LoadProgressData();
+            // LoadResourceData();
         }
 
         #endregion
