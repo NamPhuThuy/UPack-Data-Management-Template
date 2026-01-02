@@ -5,25 +5,12 @@ using MoreMountains.Tools;
 using NamPhuThuy.Common;
 using UnityEngine;
 
-namespace NamPhuThuy.Data
+namespace NamPhuThuy.DataManage
 {
 
     [Serializable]
     public partial class PlayerData
     {
-        [SerializeField] private int levelId;
-        public int LevelId
-        {
-            get => levelId;
-            set
-            {
-                levelId = value;
-                levelId = Math.Max(0, value);
-                DataManager.Ins.MarkDirty();
-            }
-            
-        }
-
         public int coin;
         public int Coin
         {
@@ -53,17 +40,14 @@ namespace NamPhuThuy.Data
                 MMEventManager.TriggerEvent(new EResourceUpdated());
             }
         }
-
-        public bool isRemoveAds;
-        
         public List<PlayerBoosterData> boosters = new List<PlayerBoosterData>();
 
-        public PlayerData(int levelId = 0, int coin = 0)
+        public PlayerData()
         {
-            this.LevelId = levelId;
-            this.Coin = coin;
-            this.isRemoveAds = false;
-            remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;
+            // this.LevelId = levelId;
+            // this.Coin = coin;
+            /*health = DataConst.MAX_HEALTH;
+            remainTimeForNextHeart = DataConst.HEALTH_REGEN_TIME;*/
         }
         
         // For reflection serialization
@@ -79,10 +63,8 @@ namespace NamPhuThuy.Data
             var sb = new StringBuilder();
 
             sb.AppendLine("=== PlayerData ===");
-            sb.AppendLine($"CurrentLevelId: {LevelId}");
             sb.AppendLine($"Coin: {Coin}");
             sb.AppendLine($"Health: {Health}");
-            sb.AppendLine($"IsRemoveAds: {isRemoveAds}");
 
             sb.AppendLine("Boosters:");
             if (boosters == null || boosters.Count == 0)
@@ -115,17 +97,13 @@ namespace NamPhuThuy.Data
                     if (currentNum < amount) return false;
                     AddBooster(boosterType, -amount);
                     return true;
-                case ResourceType.NO_ADS:
-                    // No spending for No Ads
-                    return false;
                 case ResourceType.HEART:
                     if (health < amount) return false;
                     Health -= amount;
                     return true;    
-                default:
-                    Debug.LogWarning($"PlayerData.TrySpendResource() - Unsupported ResourceType: {resourceType}");
-                    return false;
             }
+
+            return false;
         }
 
         public void AddResource(ResourceType type, int amount, BoosterType boosterType = BoosterType.NONE)
@@ -140,7 +118,7 @@ namespace NamPhuThuy.Data
                     AddBooster(boosterType, amount);
                     break;
                 case ResourceType.NO_ADS:
-                    ActiveNoAds();
+                    DataManager.Ins.PProgressData.RemoveAds();
                     break;
                 case ResourceType.HEART:
                     Health += amount;
@@ -267,14 +245,7 @@ namespace NamPhuThuy.Data
         }
 
         #endregion
-        #region NoAds Helpers
-
-        public void ActiveNoAds()
-        {
-            isRemoveAds = true;
-        }
-
-        #endregion
+        
         /// <summary>
         /// Apply a list of rewards to the player. Returns true if anything was granted.
         /// </summary>
@@ -309,7 +280,7 @@ namespace NamPhuThuy.Data
 
                     case ResourceType.NO_ADS:
 
-                        DataManager.Ins.PlayerData.ActiveNoAds();
+                        DataManager.Ins.PProgressData.RemoveAds();
                         break;
                 }
             }
